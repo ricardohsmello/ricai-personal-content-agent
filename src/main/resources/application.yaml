@@ -1,8 +1,19 @@
+server:
+  port: ${PORT:8080}
 spring:
+  mongodb:
+    uri: ${MONGODB_URI}
+    database: ${MONGODB_DATABASE:personal_content}
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
+    vectorstore:
+      mongodb:
+        collection-name: content_kb
+        index-name: vectorstore_index
+        initialize-schema: true
   application:
     name: personal-content-rag
-server:
-  port: ${PORT:8080}
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
