@@ -1,3 +1,6 @@
+
 spring:
   application:
     name: personal-content-rag
+server:
+  port: ${PORT:8080}
