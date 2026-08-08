@@ -1,6 +1,8 @@
 package br.com.ricas.web;
 
+import br.com.ricas.model.ChatRequest;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,15 @@ public class ContentChatController {
 	}
 
 	@PostMapping
-	public String chat(@RequestBody String message) {
-		logger.info("Message: " + message);
+	public String chat(@RequestBody ChatRequest chatRequest) {
+		logger.info("Message: " + chatRequest);
 
-		return chatClient.prompt(message)
+		return chatClient.prompt(chatRequest.message())
+				.advisors(advisor -> advisor
+						.param(ChatMemory.CONVERSATION_ID, chatRequest.conversationId()))
 				.call()
 				.content();
 	}
+
+
 }

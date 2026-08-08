@@ -2,7 +2,11 @@ package br.com.ricas.config;
 
 import br.com.ricas.tools.ContentTools;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
+import org.springframework.ai.chat.memory.repository.mongo.MongoChatMemoryRepository;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +16,17 @@ import org.springframework.context.annotation.Configuration;
 public class ChatConfig {
 
 	@Bean
-	public ChatClient chatClient(OpenAiChatModel openAiChatModel, VectorStore vectorStore) {
+	public ChatMemory chatMemory(
+			MongoChatMemoryRepository mongoChatMemoryRepository
+	) {
+		return MessageWindowChatMemory.builder()
+				.chatMemoryRepository(mongoChatMemoryRepository)
+				.maxMessages(10)
+				.build();
+	}
+
+	@Bean
+	public ChatClient chatClient(OpenAiChatModel openAiChatModel, VectorStore vectorStore, ChatMemory chatMemory) {
 		return ChatClient
 				.builder(openAiChatModel)
 				.defaultSystem("""
@@ -33,6 +47,7 @@ public class ChatConfig {
 					suggest contacting Ricardo through on his email ricardohsmello@gmail.com
 					""")
 				.defaultAdvisors(
+						MessageChatMemoryAdvisor.builder(chatMemory).build(),
 						QuestionAnswerAdvisor.builder(vectorStore).build()
 				)
 				.defaultTools(new ContentTools())
