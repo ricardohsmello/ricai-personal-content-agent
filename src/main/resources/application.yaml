@@ -1,5 +1,7 @@
-
 spring:
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
   application:
     name: personal-content-rag
 server:
