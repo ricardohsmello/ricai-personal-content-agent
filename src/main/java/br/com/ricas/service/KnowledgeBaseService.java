@@ -1,13 +1,10 @@
 package br.com.ricas.service;
 
 import br.com.ricas.model.CatalogContentResult;
-import br.com.ricas.model.ChatRequest;
 import br.com.ricas.model.ContentResult;
 import br.com.ricas.repository.ContentKbRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.data.domain.PageRequest;
@@ -18,10 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ContentKbService {
+public class KnowledgeBaseService {
 
-	private final Logger logger = LoggerFactory.getLogger(ContentKbService.class);
-	private final ChatClient chatClient;
+	private static final Logger logger = LoggerFactory.getLogger(KnowledgeBaseService.class);
 	private final ContentKbRepository contentKbRepository;
 	private final VectorStore vectorStore;
 
@@ -29,29 +25,12 @@ public class ContentKbService {
 	private static final int MAX_LIMIT = 10;
 	private static final int SEMANTIC_LIMIT = 3;
 
-	ContentKbService(ChatClient chatClient, ContentKbRepository contentKbRepository, VectorStore vectorStore) {
-		this.chatClient = chatClient;
+	KnowledgeBaseService(
+			ContentKbRepository contentKbRepository,
+			VectorStore vectorStore
+	) {
 		this.contentKbRepository = contentKbRepository;
 		this.vectorStore = vectorStore;
-	}
-
-	public String chat(ChatRequest chatRequest) {
-		long start = System.nanoTime();
-
-		logger.info("Message: {}", chatRequest);
-
-		try {
-			return chatClient.prompt(chatRequest.message())
-					.advisors(advisor -> advisor
-							.param(ChatMemory.CONVERSATION_ID, chatRequest.conversationId()))
-					.call()
-					.content();
-		}
-		finally {
-			long durationMs = (System.nanoTime() - start) / 1_000_000;
-
-			logger.info("Chat operation completed in {} ms", durationMs);
-		}
 	}
 
 	public List<CatalogContentResult> findByMetadataCategory(String category, int limit) {

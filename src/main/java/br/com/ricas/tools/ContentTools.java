@@ -2,7 +2,7 @@ package br.com.ricas.tools;
 
 import br.com.ricas.model.CatalogContentResult;
 import br.com.ricas.model.ContentResult;
-import br.com.ricas.service.ContentKbService;
+import br.com.ricas.service.KnowledgeBaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
@@ -18,17 +18,17 @@ public class ContentTools {
 	private static final Logger logger =
 			LoggerFactory.getLogger(ContentTools.class);
 
+	private final KnowledgeBaseService knowledgeBaseService;
+
+	ContentTools(KnowledgeBaseService knowledgeBaseService) {
+		this.knowledgeBaseService = knowledgeBaseService;
+	}
+
 	@Tool(description = "Get the current date")
 	public Date getDate() {
 		logger.info("Calling getDate");
 
 		return new Date();
-	}
-
-	private final ContentKbService contentKbService;
-
-	ContentTools(ContentKbService contentKbService) {
-		this.contentKbService = contentKbService;
 	}
 
 	@Tool(description = """
@@ -43,7 +43,7 @@ public class ContentTools {
 			int limit
 	) {
 
-		return contentKbService.findByMetadataCategory(category.toLowerCase(), limit);
+		return knowledgeBaseService.findByMetadataCategory(category.toLowerCase(), limit);
 	}
 
 	@Tool(description = """
@@ -69,7 +69,7 @@ public class ContentTools {
                 """)
 			int limit
 	) {
-		return contentKbService.searchKnowledgeBase(query, limit);
+		return knowledgeBaseService.searchKnowledgeBase(query, limit);
 	}
 
 	@Tool(description = """
@@ -84,7 +84,7 @@ public class ContentTools {
 			)
 			String category
 	) {
-		return contentKbService.countByMetadataCategory(category);
+		return knowledgeBaseService.countByMetadataCategory(category);
 	}
 
 	@Tool(description = """
@@ -99,7 +99,7 @@ public class ContentTools {
 			)
 			int limit
 	) {
-		return contentKbService.findUpcomingEvents(limit);
+		return knowledgeBaseService.findUpcomingEvents(limit);
 	}
 
 	@Tool(description = """
@@ -129,7 +129,7 @@ public class ContentTools {
 			)
 			int limit
 	) {
-		return contentKbService.findContentByPeriod(category, startDate, endDate, limit);
+		return knowledgeBaseService.findContentByPeriod(category, startDate, endDate, limit);
 	}
 
 }
