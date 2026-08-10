@@ -1,6 +1,6 @@
 package br.com.ricas.tools;
 
-import br.com.ricas.model.ContentKb;
+import br.com.ricas.model.CatalogContentResult;
 import br.com.ricas.model.ContentResult;
 import br.com.ricas.repository.ContentKbRepository;
 import org.slf4j.Logger;
@@ -46,7 +46,7 @@ public class ContentTools {
 			publication date from newest to oldest. Returns up to the requested number
 			of results. Suitable for chronological and recent-content lookups.
 			""")
-	public List<ContentKb> findRecentContent(
+	public List<CatalogContentResult> findRecentContent(
 			@ToolParam(description = "Content category: article, video, event, or project. Use event for talks")
 			String category,
 			@ToolParam(description = "Number of items: 1 for singular requests, or 5 when unspecified")
@@ -61,7 +61,10 @@ public class ContentTools {
 
 		logger.info("Calling findByMetadataCategory with params {}, {}", category, pageable);
 
-		return contentKbRepository.findByMetadataCategory(category.toLowerCase(), pageable);
+		return contentKbRepository.findByMetadataCategory(category.toLowerCase(), pageable)
+				.stream()
+				.map(CatalogContentResult::from)
+				.toList();
 	}
 
 	@Tool(description = """
@@ -127,7 +130,7 @@ public class ContentTools {
 
     Suitable for questions about next, upcoming, or future events and talks.
     """)
-	public List<ContentKb> findUpcomingEvents(
+	public List<CatalogContentResult> findUpcomingEvents(
 			@ToolParam(
 					description = "Maximum number of upcoming events to return. Use 5 when unspecified"
 			)
@@ -145,11 +148,14 @@ public class ContentTools {
 		logger.info("Calling findByMetadataCategoryAndMetadataCreatedAtGreaterThanEqual with params {}, {}", today, pageable);
 
 		return contentKbRepository
-				.findByMetadataCategoryAndMetadataCreatedAtGreaterThanEqual(
+				.findUpcomingByCategory(
 						"event",
 						today,
 						pageable
-				);
+				)
+				.stream()
+				.map(CatalogContentResult::from)
+				.toList();
 	}
 	private int normalizeLimit(int limit) {
 		if (limit <= 0) {
@@ -165,7 +171,7 @@ public class ContentTools {
 
     Suitable for date-range and period-based catalog queries.
     """)
-	public List<ContentKb> findContentByPeriod(
+	public List<CatalogContentResult> findContentByPeriod(
 			@ToolParam(
 					description = "Content category: article, video, event, or project. Use event for talks"
 			)
@@ -204,7 +210,10 @@ public class ContentTools {
 						startDate,
 						endDate,
 						pageable
-				);
+				)
+				.stream()
+				.map(CatalogContentResult::from)
+				.toList();
 	}
 
 	private void validatePeriod(String startDate, String endDate) {
