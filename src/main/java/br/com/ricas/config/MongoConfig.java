@@ -1,28 +1,34 @@
 package br.com.ricas.config;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.mongodb.autoconfigure.MongoClientSettingsBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
 public class MongoConfig {
 
-	@Value("${spring.mongodb.uri}")
-	private String uri;
+	@Value("${devrel.application.track-name}")
+	private String appTrackName;
 
-	@Value("${spring.mongodb.database}")
-	private String database;
+	@Value("${spring.mongodb.uri}")
+	private String connectionString;
 
 	@Bean
-	public MongoClient mongoClient() {
-		return MongoClients.create(uri);
+	MongoClientSettingsBuilderCustomizer applicationNameCustomizer() {
+		return builder -> builder.applicationName(appTrackName);
 	}
 
 	@Bean
-	public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-		return new MongoTemplate(mongoClient, database);
+	public MongoClient mongoClient() {
+		var settings = MongoClientSettings
+				.builder()
+				.applyConnectionString(new ConnectionString(connectionString))
+				.build();
+		return MongoClients.create(settings);
 	}
 }
