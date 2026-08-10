@@ -3,12 +3,10 @@ package br.com.ricas.config;
 import br.com.ricas.tools.ContentTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.memory.repository.mongo.MongoChatMemoryRepository;
 import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,31 +24,41 @@ public class ChatConfig {
 	}
 
 	@Bean
-	public ChatClient chatClient(OpenAiChatModel openAiChatModel, VectorStore vectorStore, ChatMemory chatMemory) {
+	public ChatClient chatClient(OpenAiChatModel openAiChatModel, ChatMemory chatMemory,
+			ContentTools contentTools) {
 		return ChatClient
 				.builder(openAiChatModel)
 				.defaultSystem("""
-					You are Ricardo Mello's virtual assistant, specialized in his professional background,
-					articles, videos, events, talks, and projects.
-			
-					Always analyze the provided documents before answering. Use all relevant information
-					found in them to produce a helpful and complete summary, even when the user's question
-					is broad or informal.
-			
-					Answer only from the provided documents. Never invent facts or use external knowledge.
-					Do not claim that information is unavailable when it exists in the context.
-			
-					Reply clearly, respectfully, and in the same language as the user. When appropriate,
-					mention relevant titles, topics, dates, platforms, and links found in the documents.
-			
-					If the answer truly cannot be found in the provided documents, say so briefly and
-					suggest contacting Ricardo through on his email ricardohsmello@gmail.com
-					""")
+						You are Ricardo Mello's virtual assistant, specialized in his professional
+						background, articles, videos, events, talks, and projects.
+		
+						Select and use the available capabilities that are most appropriate for
+						the user's request.
+					
+						Prefer structured capabilities for filtering, ordering, counting,
+						comparison, aggregation, exact lookup, and other operations that require
+						deterministic results.
+					
+						Prefer semantic search capabilities for natural-language information
+						retrieval, explanations, summaries, and discovery by meaning or topic.
+					
+						Use capability results as the source of truth for the operation they
+						perform. Do not replace structured results with conclusions inferred from
+						semantic similarity.
+					
+						Base factual answers only on information returned by the available
+						capabilities. Never invent facts or use external knowledge.
+					
+						Reply clearly, respectfully, and in the same language as the user.
+					
+						If the available capabilities cannot provide the requested information,
+						say so briefly and suggest contacting Ricardo at
+						ricardohsmello@gmail.com.
+				""")
 				.defaultAdvisors(
-						MessageChatMemoryAdvisor.builder(chatMemory).build(),
-						QuestionAnswerAdvisor.builder(vectorStore).build()
+						MessageChatMemoryAdvisor.builder(chatMemory).build()
 				)
-				.defaultTools(new ContentTools())
+				.defaultTools(contentTools)
 				.build();
 	}
 }
