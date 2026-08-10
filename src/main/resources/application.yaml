@@ -29,6 +29,10 @@ spring:
 agent:
   memory:
     max-messages: 10
+calendly:
+  access-token: ${CALENDLY_ACCESS_TOKEN:}
+  event-type-uri: ${CALENDLY_EVENT_TYPE_URI:}
+  scheduling-url: ${CALENDLY_SCHEDULING_URL:https://calendly.com/ricardohsmello/30min}
 devrel:
   application:
     track-name: devrel-tutorial-java-content-rag

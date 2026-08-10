@@ -1,6 +1,7 @@
 package br.com.ricas.config;
 
 import br.com.ricas.tools.ContentTools;
+import br.com.ricas.tools.SchedulingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -29,7 +30,7 @@ public class ChatConfig {
 
 	@Bean
 	public ChatClient chatClient(OpenAiChatModel openAiChatModel, ChatMemory chatMemory,
-			ContentTools contentTools) {
+			ContentTools contentTools, SchedulingTools schedulingTools) {
 		return ChatClient
 				.builder(openAiChatModel)
 				.defaultSystem("""
@@ -52,6 +53,10 @@ public class ChatConfig {
 					
 						Base factual answers only on information returned by the available
 						capabilities. Never invent facts or use external knowledge.
+
+						Before using any capability that creates an external side effect,
+						summarize the exact action and obtain explicit confirmation from the
+						user. Read-only capabilities do not require confirmation.
 					
 						Reply clearly, respectfully, and in the same language as the user.
 					
@@ -62,9 +67,8 @@ public class ChatConfig {
 				.defaultAdvisors(
 						MessageChatMemoryAdvisor.builder(chatMemory).build()
 				)
-				.defaultTools(contentTools)
+				.defaultTools(contentTools, schedulingTools)
 				.build();
 	}
 }
-
 
