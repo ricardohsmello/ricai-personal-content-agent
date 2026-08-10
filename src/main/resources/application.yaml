@@ -24,7 +24,7 @@ spring:
     name: personal-content-rag
 agent:
   memory:
-    max-messages: 20
+    max-messages: 10
 devrel:
   application:
     track-name: devrel-tutorial-java-content-rag
