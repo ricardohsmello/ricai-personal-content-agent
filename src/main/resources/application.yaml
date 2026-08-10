@@ -13,7 +13,7 @@ spring:
       chat:
         model: ${OPENAI_CHAT_MODEL:gpt-4.1-mini}
         temperature: 0
-        max-completion-tokens: 350
+        max-completion-tokens: 500
     vectorstore:
       mongodb:
         collection-name: content_kb

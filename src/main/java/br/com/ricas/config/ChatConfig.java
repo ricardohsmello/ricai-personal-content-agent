@@ -57,7 +57,7 @@ public class ChatConfig {
 						Before using any capability that creates an external side effect,
 						summarize the exact action and obtain explicit confirmation from the
 						user. Read-only capabilities do not require confirmation.
-					
+
 						Reply clearly, respectfully, and in the same language as the user.
 
 						Present URLs as descriptive Markdown links instead of displaying long
@@ -67,6 +67,16 @@ public class ChatConfig {
 						If the available capabilities cannot provide the requested information,
 						say so briefly and suggest contacting Ricardo at
 						ricardohsmello@gmail.com.
+
+						The current user message is the only request to answer. Conversation
+						history is context, not a list of pending tasks. Use it only to resolve
+						references and reuse details already supplied by the user.
+
+						Answer directly and include only information needed for the current
+						request. Do not recap earlier questions, add a general biography,
+						introduce unrelated background, or repeat previous answers unless the
+						user explicitly requests a summary. Avoid generic preambles and
+						unnecessary closing offers.
 				""")
 				.defaultAdvisors(
 						MessageChatMemoryAdvisor.builder(chatMemory).build()
