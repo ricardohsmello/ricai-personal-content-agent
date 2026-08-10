@@ -37,8 +37,7 @@ public class SeedContent implements ApplicationRunner {
 		}
 
 		var listDocuments = List.of(
-				new Document(
-						"Profile / perfil / biography / biografia of Ricardo Mello. Ricardo Mello is a backend engineer, international speaker, open-source contributor, and Senior Developer Advocate at MongoDB, based in São Paulo, Brazil. He has 16 years of software-development experience and specializes in Java, Kotlin, Spring Boot, Spring Data MongoDB, MongoDB, microservices, PostgreSQL, Docker, REST APIs, and Kafka Streams. He helps Java and Kotlin developers through technical content, talks, workshops, real-world projects, and contributions to Spring Data MongoDB. His career includes large-scale logistics and banking systems, WMS platforms used by Amazon facilities, and Kotlin microservices for C6 Bank's TechInvest and Pix products. Personal website: https://ricardohsmello.com.",
+				new Document("Profile / perfil / biography / biografia of Ricardo Mello. Ricardo Mello is a backend engineer, international speaker, open-source contributor, and Senior Developer Advocate at MongoDB, based in São Paulo, Brazil. He has 16 years of experience in software development, with approximately 14 years primarily focused on backend engineering and delivering production systems for large companies across industries such as banking, logistics, and retail. Throughout most of his career, Ricardo worked directly with software analysis, architecture, and development — from understanding business requirements and real customer problems to designing, implementing, optimizing, and delivering reliable solutions to production. His main technical background is in Java, Kotlin, Spring Boot, Spring Data MongoDB, MongoDB, microservices, PostgreSQL, REST APIs, Docker, and event-driven architectures with technologies such as Kafka. He has also worked beyond backend development, including Android application development and web applications using technologies such as Angular. His career includes building large-scale warehouse management and logistics systems, including WMS platforms used by Amazon facilities, backend systems in the retail industry, and financial applications at C6 Bank, where he worked with Kotlin microservices for TechInvest, investment products, and Pix. Sharing knowledge has always been an important part of Ricardo's career. Even while working primarily as a software engineer, he enjoyed helping other developers, explaining technical concepts, sharing practical experience, and helping teams solve engineering problems. Today, as a Senior Developer Advocate at MongoDB, he combines this hands-on engineering background with developer education, helping Java and Kotlin developers build better applications using technologies such as MongoDB, the MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Spring AI, Vector Search, Retrieval-Augmented Generation (RAG), and modern AI-powered application patterns. He does this through technical content, talks, workshops, hands-on labs, real-world projects, and direct engagement with developer communities. He also continues to expand his open-source contributions within the Java and Spring ecosystems, particularly around projects and integrations involving Spring Data, Spring AI, and MongoDB. Personal website: https://ricardohsmello.com.",
 						Map.of(
 								"title", "Ricardo Mello - Professional Profile",
 								"category", "profile",
@@ -46,7 +45,17 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
-						"Ricardo Mello's professional experience at MongoDB. Role: Senior Developer Advocate. Period: Jun 2024 — Present. Location: São Paulo, Brazil · Remote. Responsibilities and achievements: Helping Java and Kotlin developers build better applications with MongoDB through technical content, talks, workshops, and real-world projects. Skills and technologies: Java, Kotlin, Spring, MongoDB, Developer Relations. Company website: https://www.mongodb.com.",
+						"Ricardo Mello's professional experience at MongoDB. "
+								+ "Role: Senior Developer Advocate. "
+								+ "Period: Jun 2024 — Present. "
+								+ "Location: São Paulo, Brazil · Remote. "
+								+ "Responsibilities and achievements: Ricardo focuses on the Java and Kotlin developer ecosystems and leads Java-focused initiatives within Developer Relations. "
+								+ "He is responsible for developing and leading global technical enablement programs, hands-on workshops, labs, and reusable educational content focused on Java and MongoDB. "
+								+ "His work helps developers learn how to build modern applications with MongoDB, covering topics such as data modeling, the Aggregation Framework, MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Vector Search, Retrieval-Augmented Generation (RAG), AI-powered applications, and modern application architecture. "
+								+ "He works closely with developers, engineering teams, Solution Architects, and other Developer Relations teams to identify real-world developer challenges and transform them into practical technical content, demos, workshops, and learning experiences. "
+								+ "He also supports the broader Java and Kotlin communities through international conference talks, enterprise technical sessions, mentoring, real-world projects, and open-source contributions, including Spring Data MongoDB. "
+								+ "Skills and technologies: Java, Kotlin, Spring Boot, Spring Data MongoDB, Spring AI, MongoDB, MongoDB Java Driver, Vector Search, RAG, Developer Relations, technical enablement, workshops, and developer education. "
+								+ "Company website: https://www.mongodb.com.",
 						Map.of(
 								"title", "Senior Developer Advocate at MongoDB",
 								"category", "experience",
@@ -182,11 +191,11 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
-						"Event: CITI Bank - MongoDB Day. Talk/topic: MongoDB Developer Day. MongoDB Developer Day with hands-on labs and a full Design Review with multiple engineering teams at Citi. Date: Nov 2026. Location: São Paulo, Brazil. Format/type: Enterprise. Status: past event. Highlight: Full Design Review with multiple engineering teams. Last week I had the opportunity to deliver another MongoDB Developer Day in São Paulo, hosted by Citi. Developer Day is a hands-on enablement program where we go deep into topics like data modeling, architecture decisions, and advanced capabilities in MongoDB. This time, we also ran a full Design Review with several engineering teams, discussing real challenges and how MongoDB can support their architecture moving forward. Finally, I would like to thank all the participants of the Developer Day and my MongoDB colleagues for helping make this such a great event. Event page: https://ricardohsmello.com/events/citibank-2026.",
+						"Event: CITI Bank - MongoDB Day. Talk/topic: MongoDB Developer Day. MongoDB Developer Day with hands-on labs and a full Design Review with multiple engineering teams at Citi. Date: Feb 2026. Location: São Paulo, Brazil. Format/type: Enterprise. Status: past event. Highlight: Full Design Review with multiple engineering teams. Last week I had the opportunity to deliver another MongoDB Developer Day in São Paulo, hosted by Citi. Developer Day is a hands-on enablement program where we go deep into topics like data modeling, architecture decisions, and advanced capabilities in MongoDB. This time, we also ran a full Design Review with several engineering teams, discussing real challenges and how MongoDB can support their architecture moving forward. Finally, I would like to thank all the participants of the Developer Day and my MongoDB colleagues for helping make this such a great event. Event page: https://ricardohsmello.com/events/citibank-2026.",
 						Map.of(
 								"title", "CITI Bank - MongoDB Day",
 								"category", "event",
-								"createdAt", "2026-11-01"
+								"createdAt", "2025-02-26"
 						)
 				),
 				new Document(
