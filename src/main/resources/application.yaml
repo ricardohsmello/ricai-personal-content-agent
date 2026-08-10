@@ -4,6 +4,9 @@ spring:
   mongodb:
     uri: ${MONGODB_URI}
     database: ${MONGODB_DATABASE:personal_content}
+  data:
+    mongodb:
+      auto-index-creation: true
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
@@ -12,8 +15,16 @@ spring:
         collection-name: content_kb
         index-name: vectorstore_index
         initialize-schema: true
+    chat:
+      memory:
+        repository:
+          mongo:
+            create-indices: true
   application:
     name: personal-content-rag
+devrel:
+  application:
+    track-name: devrel-tutorial-java-content-rag
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
