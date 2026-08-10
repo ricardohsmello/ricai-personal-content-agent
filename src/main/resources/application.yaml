@@ -10,6 +10,10 @@ spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
+      chat:
+        model: ${OPENAI_CHAT_MODEL:gpt-4.1-mini}
+        temperature: 0
+        max-completion-tokens: 350
     vectorstore:
       mongodb:
         collection-name: content_kb
@@ -30,4 +34,4 @@ devrel:
     track-name: devrel-tutorial-java-content-rag
 logging:
   level:
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: INFO
