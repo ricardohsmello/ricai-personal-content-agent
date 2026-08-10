@@ -99,10 +99,17 @@ public class ContentTools {
 
 		logger.info("Calling similaritySearch with params {}", searchRequest);
 
-		return vectorStore.similaritySearch(searchRequest)
-				.stream()
-				.map(ContentResult::from)
-				.toList();
+		long startedAt = System.nanoTime();
+		try {
+			return vectorStore.similaritySearch(searchRequest)
+					.stream()
+					.map(ContentResult::from)
+					.toList();
+		}
+		finally {
+			long elapsedMs = (System.nanoTime() - startedAt) / 1_000_000;
+			logger.info("similaritySearch completed in {} ms", elapsedMs);
+		}
 	}
 
 	@Tool(description = """
