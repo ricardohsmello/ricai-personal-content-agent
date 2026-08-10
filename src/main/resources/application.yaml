@@ -22,6 +22,9 @@ spring:
             create-indices: true
   application:
     name: personal-content-rag
+agent:
+  memory:
+    max-messages: 20
 devrel:
   application:
     track-name: devrel-tutorial-java-content-rag

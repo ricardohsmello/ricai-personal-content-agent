@@ -7,11 +7,15 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.memory.repository.mongo.MongoChatMemoryRepository;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ChatConfig {
+
+	@Value("${agent.memory.max-messages}")
+	private int maxMessages;
 
 	@Bean
 	public ChatMemory chatMemory(
@@ -19,7 +23,7 @@ public class ChatConfig {
 	) {
 		return MessageWindowChatMemory.builder()
 				.chatMemoryRepository(mongoChatMemoryRepository)
-				.maxMessages(10)
+				.maxMessages(maxMessages)
 				.build();
 	}
 
@@ -62,3 +66,5 @@ public class ChatConfig {
 				.build();
 	}
 }
+
+
