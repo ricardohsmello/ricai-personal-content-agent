@@ -59,7 +59,11 @@ public class ChatConfig {
 						user. Read-only capabilities do not require confirmation.
 					
 						Reply clearly, respectfully, and in the same language as the user.
-					
+
+						Present URLs as descriptive Markdown links instead of displaying long
+						raw URLs, unless the user explicitly asks to see or copy the URL. Keep
+						the original URL unchanged as the Markdown link destination.
+	
 						If the available capabilities cannot provide the requested information,
 						say so briefly and suggest contacting Ricardo at
 						ricardohsmello@gmail.com.
@@ -71,4 +75,3 @@ public class ChatConfig {
 				.build();
 	}
 }
-

@@ -7,14 +7,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class CalendlyService {
@@ -78,14 +78,17 @@ public class CalendlyService {
 	public SchedulingLinkResult createSchedulingLink(
 			String name,
 			String email,
-			String meetingDescription
+			String meetingDescription,
+			String selectedSchedulingUrl
 	) {
 		requireText(name, "name");
 		requireText(email, "email");
 		requireText(meetingDescription, "meetingDescription");
 		requireText(schedulingUrl, "calendly.scheduling-url");
+		requireText(selectedSchedulingUrl, "selectedSchedulingUrl");
+		validateSelectedSchedulingUrl(selectedSchedulingUrl);
 
-		String prefilledUrl = UriComponentsBuilder.fromUriString(schedulingUrl)
+		String prefilledUrl = UriComponentsBuilder.fromUriString(selectedSchedulingUrl)
 				.queryParam("name", name)
 				.queryParam("email", email)
 				.queryParam("a1", meetingDescription)
@@ -94,6 +97,21 @@ public class CalendlyService {
 				.toUriString();
 
 		return new SchedulingLinkResult(prefilledUrl);
+	}
+
+	private void validateSelectedSchedulingUrl(String selectedSchedulingUrl) {
+		URI configured = URI.create(schedulingUrl);
+		URI selected = URI.create(selectedSchedulingUrl);
+		String configuredPath = configured.getPath().replaceAll("/+$", "");
+		String selectedPath = selected.getPath();
+
+		if (!"https".equalsIgnoreCase(selected.getScheme())
+				|| !configured.getHost().equalsIgnoreCase(selected.getHost())
+				|| !selectedPath.startsWith(configuredPath + "/")) {
+			throw new IllegalArgumentException(
+					"selectedSchedulingUrl must be a specific available-time URL returned by Calendly"
+			);
+		}
 	}
 
 	private void validateConfiguration() {

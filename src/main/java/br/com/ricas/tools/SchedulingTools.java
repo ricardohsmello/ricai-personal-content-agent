@@ -32,17 +32,27 @@ public class SchedulingTools {
 
 	@Tool(description = """
 			Creates a public Calendly scheduling link prefilled with the invitee's
-			name, email, and a brief description of what they want to discuss. Ask
-			for any missing information before using this capability. This does not
-			create a meeting; the user must open the link, select an available time,
-			and confirm the booking in Calendly.
+			name, email, and a brief description of what they want to discuss, using
+			the exact schedulingUrl returned for the time selected from
+			findAvailableMeetingTimes. Ask for any missing or ambiguous information
+			before using this capability. This does not create a meeting; the user
+			must open the link and confirm the booking in Calendly. Present the
+			returned URL as a short, descriptive Markdown link in the user's
+			language; do not display the raw URL unless requested.
 			""")
 	public SchedulingLinkResult createSchedulingLink(
 			@ToolParam(description = "Invitee's full name") String name,
 			@ToolParam(description = "Invitee's email address") String email,
 			@ToolParam(description = "Brief description of what the invitee wants to discuss")
-			String meetingDescription
+			String meetingDescription,
+			@ToolParam(description = "Exact schedulingUrl of the selected available time, as returned by findAvailableMeetingTimes")
+			String selectedSchedulingUrl
 	) {
-		return calendlyService.createSchedulingLink(name, email, meetingDescription);
+		return calendlyService.createSchedulingLink(
+				name,
+				email,
+				meetingDescription,
+				selectedSchedulingUrl
+		);
 	}
 }
