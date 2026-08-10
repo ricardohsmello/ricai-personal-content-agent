@@ -566,14 +566,6 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
-						"Videos / vídeos / tutorials by Ricardo Mello. The website contains 20 videos. Complete video index: Build a Java RAG Application in 3 Steps. — 2026-07, duration 01:33 min; link: https://www.youtube.com/shorts/f7qtqqLp-jE | A complete football betting platform built with Java, Angular, and MongoDB. — 2026-06, duration 11:37 min; link: https://www.youtube.com/watch?v=oBvNd25MG10 | Tutorial: Building a Kotlin and Quarkus Application | MongoDB Aggregation Framework and Queries — 2026-05, duration 13:43 min; link: https://www.youtube.com/watch?v=tWZOwQT1C_Q | Kotlin + Quarkus: Working with MongoDB Aggregation Framework — 2026-04, duration < 1 min; link: https://www.youtube.com/shorts/-gQ9LXyEACQ | MongoDB Atlas Full-Text Search Tutorial — 2026-03, duration < 1 min; link: https://www.youtube.com/shorts/3VOcbdVJ63s | How to Create Indexes in Spring Data MongoDB | Single and Compound Indexes Explained — 2026-02, duration < 1 min; link: https://www.youtube.com/shorts/25RHDbGGjOE | MongoDB Aggregation Framework Explained in 2 Minutes | A Beginner's Guide — 2025-11, duration 2 min; link: https://www.youtube.com/watch?v=CbYitR4mR6I | How to Migrate from Relational Databases to MongoDB | Relational Migrator 101 — 2025-03, duration —; link: https://www.youtube.com/watch?v=Z6D5Ge4M2KU | Should YOU Migrate from Relational Databases to Build Modern Applications? — 2025-02, duration —; link: https://www.youtube.com/watch?v=2Rguel3HG78 | Indexes: Strategies to Improve Performance — 2025-01, duration ~60 min; link: https://www.mongodb.com/resources/products/platform/webinar-indexes-strategies-to-improve-performance | Optimize Spring Data with MongoDB — 2024-12, duration < 1 min; link: https://www.youtube.com/shorts/H-pMOfSrOI8 | Build Powerful Search with Kotlin & MongoDB — 2024-11, duration < 1 min; link: https://www.youtube.com/shorts/dHBaiYIpshk | Spring Data Unlocked: A Comprehensive Java and MongoDB Series — 2024-11, duration < 1 min; link: https://www.youtube.com/shorts/_AwCc47ImtI | Mastering Spring Data MongoDB for Better Developer Productivity — 2024-10, duration 55.31 min; link: https://www.youtube.com/watch?v=w4lvxI47QnU | Engage with the MongoDB Developer Community! | How to Post Comments in Forums — 2024-08, duration < 1 min; link: https://www.youtube.com/shorts/-sgCimDSgxo | Building a Kotlin App with Spring Boot and Atlas Search: A Complete Guide — 2024-05, duration —; link: https://www.youtube.com/watch?v=b0dkQYcvBkQ | Mastering Kotlin: Creating an API With Ktor and MongoDB Atlas — 2024-02, duration < 1 min; link: https://www.youtube.com/shorts/OBmz-1Nbv50 | MongoDB Compass - Convert Text into Queries with AI-Powered Natural Language — 2024-02, duration 7:58 min; link: https://www.youtube.com/watch?v=3Qtzxrp5iO0 | Understanding MongoDB Replication: A Step-by-Step Replica Set Creation — 2024-01, duration 18:12 min; link: https://www.youtube.com/watch?v=ZGHowQHMOoM | Relational Migrator - Continuous Sync Jobs PostgreSQL to MongoDB Atlas — 2023-12, duration 0:56 min; link: https://www.youtube.com/watch?v=nvKm4PCEmC0.",
-						Map.of(
-								"title", "Ricardo Mello - Videos and Tutorials Index",
-								"category", "video",
-								"createdAt", "2026-08-10"
-						)
-				),
-				new Document(
 						"Video: Build a Java RAG Application in 3 Steps.. Learn how to build a RAG application using Java, MongoDB Atlas, LangChain4j, and OpenAI. Published in 2026-07. Duration: 01:33 min. Watch at: https://www.youtube.com/shorts/f7qtqqLp-jE.",
 						Map.of(
 								"title", "Build a Java RAG Application in 3 Steps.",
@@ -731,14 +723,6 @@ public class SeedContent implements ApplicationRunner {
 								"title", "Relational Migrator - Continuous Sync Jobs PostgreSQL to MongoDB Atlas",
 								"category", "video",
 								"createdAt", "2023-12-01"
-						)
-				),
-				new Document(
-						"Projects / projetos created by Ricardo Mello. Complete project index: MongoDB CLI Lab: An interactive, browser-based CLI environment for learning MongoDB from scratch — no install required. Technologies: MongoDB, Interactive, Education, CLI, Next.js. Link: https://mongodb-cli-lab.vercel.app/ | G12 Football Bet: A complete football betting platform built with Java, Angular, and MongoDB. Technologies: Java, Spring Boot, Angular, MongoDB, Keycloak, Docker. Link: https://youtu.be/gn2cshtgF5U?si=Y-paTNNDMrEstxMU.",
-						Map.of(
-								"title", "Ricardo Mello - Projects Index",
-								"category", "project",
-								"createdAt", "2026-08-10"
 						)
 				),
 				new Document(
