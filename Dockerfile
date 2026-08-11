@@ -9,7 +9,7 @@ RUN git clone --depth 1 \
     --branch mongo-chat-memory-ordering \
     https://github.com/MacAlsandair/spring-ai.git .
 
-RUN ./mvnw \
+RUN mvn \
     -pl :spring-ai-bom,\
 :spring-ai-starter-model-chat-memory-repository-mongodb,\
 :spring-ai-starter-model-openai,\
