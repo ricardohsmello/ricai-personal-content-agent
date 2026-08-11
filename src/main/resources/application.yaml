@@ -28,7 +28,7 @@ spring:
     name: personal-content-rag
 agent:
   memory:
-    max-messages: 10
+    max-messages: 50
 calendly:
   access-token: ${CALENDLY_ACCESS_TOKEN:}
   event-type-uri: ${CALENDLY_EVENT_TYPE_URI:}
