@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class CalendlyService {
 	private static final int DEFAULT_LIMIT = 5;
 	private static final int MAX_LIMIT = 10;
 	private static final Duration MAX_AVAILABILITY_PERIOD = Duration.ofDays(31);
+	private static final ZoneId DISPLAY_TIMEZONE = ZoneId.of("America/Sao_Paulo");
 
 	private final RestClient calendlyClient;
 	private final String accessToken;
@@ -68,11 +70,20 @@ public class CalendlyService {
 		return collection(response).stream()
 				.limit(effectiveLimit)
 				.map(item -> new AvailableMeetingTime(
-						stringValue(item, "start_time"),
+						toDisplayTime(stringValue(item, "start_time")),
+						DISPLAY_TIMEZONE.getId(),
 						stringValue(item, "status"),
 						stringValue(item, "scheduling_url")
 				))
 				.toList();
+	}
+
+	private String toDisplayTime(String utcStartTime) {
+		requireText(utcStartTime, "start_time");
+		return Instant.parse(utcStartTime)
+				.atZone(DISPLAY_TIMEZONE)
+				.toOffsetDateTime()
+				.toString();
 	}
 
 	public SchedulingLinkResult createSchedulingLink(

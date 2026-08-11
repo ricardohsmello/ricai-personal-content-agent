@@ -20,7 +20,9 @@ public class SchedulingTools {
 
 	@Tool(description = """
 			Lists available times for a meeting with Ricardo. This is a read-only
-			operation. Use it before asking the user to select and confirm a time.
+			operation. Returned start times are already converted to the
+			America/Sao_Paulo timezone and must be presented without converting
+			them again. Use it before asking the user to select and confirm a time.
 			""")
 	public List<AvailableMeetingTime> findAvailableMeetingTimes(
 			@ToolParam(description = "Future range start as an ISO-8601 UTC instant") String startTime,
