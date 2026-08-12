@@ -37,31 +37,80 @@ public class SeedContent implements ApplicationRunner {
 		}
 
 		var listDocuments = List.of(
-				new Document("Profile / perfil / biography / biografia of Ricardo Mello. Ricardo Mello is a backend engineer, international speaker, open-source contributor, and Senior Developer Advocate at MongoDB, based in São Paulo, Brazil. He has 16 years of experience in software development, with approximately 14 years primarily focused on backend engineering and delivering production systems for large companies across industries such as banking, logistics, and retail. Throughout most of his career, Ricardo worked directly with software analysis, architecture, and development — from understanding business requirements and real customer problems to designing, implementing, optimizing, and delivering reliable solutions to production. His main technical background is in Java, Kotlin, Spring Boot, Spring Data MongoDB, MongoDB, microservices, PostgreSQL, REST APIs, Docker, and event-driven architectures with technologies such as Kafka. He has also worked beyond backend development, including Android application development and web applications using technologies such as Angular. His career includes building large-scale warehouse management and logistics systems, including WMS platforms used by Amazon facilities, backend systems in the retail industry, and financial applications at C6 Bank, where he worked with Kotlin microservices for TechInvest, investment products, and Pix. Sharing knowledge has always been an important part of Ricardo's career. Even while working primarily as a software engineer, he enjoyed helping other developers, explaining technical concepts, sharing practical experience, and helping teams solve engineering problems. Today, as a Senior Developer Advocate at MongoDB, he combines this hands-on engineering background with developer education, helping Java and Kotlin developers build better applications using technologies such as MongoDB, the MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Spring AI, Vector Search, Retrieval-Augmented Generation (RAG), and modern AI-powered application patterns. He does this through technical content, talks, workshops, hands-on labs, real-world projects, and direct engagement with developer communities. He also continues to expand his open-source contributions within the Java and Spring ecosystems, particularly around projects and integrations involving Spring Data, Spring AI, and MongoDB. Personal website: https://ricardohsmello.com.",
+				new Document("Profile / perfil / biography /" +
+						" biografia of Ricardo Mello. " +
+						" Ricardo Mello is a backend engineer, international speaker, open-source contributor" +
+						"and Senior Developer Advocate at MongoDB, based in São Paulo, " +
+						"Brazil. He has 16 years of experience in software development, " +
+						"with approximately 14 years primarily focused on backend engineering" +
+						" and delivering production systems for large companies across industries" +
+						" such as banking, logistics, and retail. Throughout most of his career, " +
+						" Ricardo worked directly with software analysis, architecture, and development" +
+						" — from understanding business requirements and real customer problems to " +
+						"designing, implementing, optimizing, and delivering reliable solutions to " +
+						"production. His main technical background is in Java, Kotlin, Spring Boot," +
+						" Spring Data MongoDB, MongoDB, microservices, PostgreSQL, REST APIs, " +
+						"Docker, and event-driven architectures with technologies such as Kafka. " +
+						"He has also worked beyond backend development, including Android application" +
+						" development and web applications using technologies such as Angular. " +
+						"His career includes building large-scale warehouse management and " +
+						"logistics systems, including WMS platforms used by Amazon facilities, " +
+						"backend systems in the retail industry, and financial applications at C6 Bank," +
+						"where he worked with Kotlin microservices for TechInvest, investment products," +
+						" and Pix. Sharing knowledge has always been an important part of" +
+						" Ricardo's career. Even while working primarily as a software engineer," +
+						" he enjoyed helping other developers, explaining technical concepts, " +
+						"sharing practical experience, and helping teams solve engineering problems." +
+						" Today, as a Senior Developer Advocate at MongoDB, he combines this hands-on" +
+						" engineering background with developer education, helping Java and Kotlin " +
+						"developers build better applications using technologies such as MongoDB," +
+						" the MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Spring AI," +
+						"Vector Search, Retrieval-Augmented Generation (RAG), and modern " +
+						"AI-powered application patterns. He does this through technical content, talks," +
+						" workshops, hands-on labs, real-world projects, and direct engagement with " +
+						"developer communities. He also continues to expand his open-source" +
+						" contributions within the Java and Spring ecosystems, particularly around " +
+						"projects and integrations involving Spring Data, Spring AI, and MongoDB." +
+						" Personal website: https://ricardohsmello.com.",
 						Map.of(
 								"title", "Ricardo Mello - Professional Profile",
 								"category", "profile",
 								"createdAt", "2026-08-10"
 						)
 				),
-				new Document(
-						"Ricardo Mello's professional experience at MongoDB. "
-								+ "Role: Senior Developer Advocate. "
-								+ "Period: Jun 2024 — Present. "
-								+ "Location: São Paulo, Brazil · Remote. "
-								+ "Responsibilities and achievements: Ricardo focuses on the Java and Kotlin developer ecosystems and leads Java-focused initiatives within Developer Relations. "
-								+ "He is responsible for developing and leading global technical enablement programs, hands-on workshops, labs, and reusable educational content focused on Java and MongoDB. "
-								+ "His work helps developers learn how to build modern applications with MongoDB, covering topics such as data modeling, the Aggregation Framework, MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Vector Search, Retrieval-Augmented Generation (RAG), AI-powered applications, and modern application architecture. "
-								+ "He works closely with developers, engineering teams, Solution Architects, and other Developer Relations teams to identify real-world developer challenges and transform them into practical technical content, demos, workshops, and learning experiences. "
-								+ "He also supports the broader Java and Kotlin communities through international conference talks, enterprise technical sessions, mentoring, real-world projects, and open-source contributions, including Spring Data MongoDB. "
-								+ "Skills and technologies: Java, Kotlin, Spring Boot, Spring Data MongoDB, Spring AI, MongoDB, MongoDB Java Driver, Vector Search, RAG, Developer Relations, technical enablement, workshops, and developer education. "
-								+ "Company website: https://www.mongodb.com.",
-						Map.of(
-								"title", "Senior Developer Advocate at MongoDB",
-								"category", "experience",
-								"createdAt", "2026-08-10"
-						)
-				),
+					new Document(
+							"Ricardo Mello's professional experience at MongoDB. "
+									+ "Role: Senior Developer Advocate. "
+									+ "Period: Jun 2024 — Present. "
+									+ "Location: São Paulo, Brazil · Remote. "
+									+ "Scope: Global. "
+									+ "Responsibilities and achievements: Ricardo focuses on the Java and Kotlin developer ecosystems and leads Java-focused initiatives within Developer Relations at MongoDB. "
+									+ "A core part of his role is understanding how Java, Kotlin, and their surrounding ecosystems are evolving in the market and determining how developers can use these technologies effectively with MongoDB. "
+									+ "This responsibility works in both directions: when new versions, frameworks, or capabilities emerge in the Java ecosystem, he evaluates how they integrate with MongoDB; when MongoDB introduces new products or features, he explores how Java and Kotlin developers can adopt and apply them in real-world applications. "
+
+									+ "This work keeps him closely connected with MongoDB engineering and product teams, including the Java Driver team, where he participates in technical discussions about new features, developer experience, integrations, and upcoming capabilities. "
+									+ "He also works closely with the broader Java and Spring ecosystems, including collaboration and technical discussions around Spring Data MongoDB, to understand new developments, evaluate MongoDB integrations, provide developer feedback, and contribute to open-source initiatives. "
+
+									+ "His technical work spans areas such as the MongoDB Java Driver, Spring Boot, Spring Data MongoDB, Spring AI, Quarkus, data modeling, the Aggregation Framework, Queryable Encryption, Atlas Search, Vector Search, Retrieval-Augmented Generation (RAG), AI-powered applications, microservices, event-driven architectures, Kafka, messaging systems, and distributed application architecture. "
+
+									+ "Ricardo also works directly with MongoDB customers and engineering teams, including large enterprise organizations, participating in technical sessions and architecture Design Reviews. "
+									+ "In these engagements, he helps teams analyze existing architectures, understand application and data requirements, identify potential improvements, and apply MongoDB effectively in production systems. "
+									+ "These discussions range from foundational topics such as document modeling, schema design, query patterns, and application integration to more advanced architectural topics including microservices, event-driven systems, Kafka and messaging platforms, scalability, distributed systems, and horizontal scaling. "
+
+									+ "Another major part of his role is developer enablement. He is responsible for developing and leading global technical enablement programs, hands-on workshops, labs, demos, and reusable educational content that help developers build applications using Java, Kotlin, Spring, Quarkus, and MongoDB. "
+									+ "These initiatives support developers and technical teams across different regions and range from MongoDB fundamentals to advanced application architecture and AI-related use cases. "
+
+									+ "He also supports the broader developer community through international conference talks, enterprise technical sessions, mentoring, technical content, real-world projects, and open-source contributions within the Java, Spring, and MongoDB ecosystems. "
+
+									+ "Skills and technologies: Java, Kotlin, Spring Boot, Spring Data MongoDB, Spring AI, Quarkus, MongoDB, MongoDB Java Driver, Data Modeling, Aggregation Framework, Queryable Encryption, Atlas Search, Vector Search, RAG, AI applications, Microservices, Kafka, Event-Driven Architecture, Distributed Systems, Developer Relations, Developer Enablement, Architecture Design Reviews, Workshops, and Developer Education. "
+
+									+ "Company website: https://www.mongodb.com.",
+							Map.of(
+									"title", "Senior Developer Advocate at MongoDB",
+									"category", "experience",
+									"createdAt", "2026-08-10"
+							)
+					),
 				new Document(
 						"Ricardo Mello's professional experience at C6 Bank. Role: Senior Software Engineer. Period: Mar 2021 — Jun 2024. Location: São Paulo, Brazil · Remote. Responsibilities and achievements: Helped build TechInvest from the ground up and developed Kotlin microservices for investment products and Pix, used by millions of customers. Skills and technologies: Kotlin, MongoDB, PostgreSQL, Kafka, Microservices. Company website: https://www.c6bank.com.br.",
 						Map.of(
@@ -748,6 +797,62 @@ public class SeedContent implements ApplicationRunner {
 								"title", "G12 Football Bet",
 								"category", "project",
 								"createdAt", "2026-08-10"
+						)
+				),
+				new Document(
+						"""
+						Project: Personal Content AI.
+
+						Personal Content AI is an AI agent developed to help users discover
+						information about Ricardo Mello's professional background, articles,
+						videos, talks, events, and projects.
+
+						The application was developed with Java 21, Spring Boot, and Spring AI.
+						It uses OpenAI models for natural-language understanding, response
+						generation, embeddings, planning, and tool selection.
+
+						MongoDB Atlas is used as the main database. It stores the content
+						knowledge base, vector embeddings, conversation memory, semantic cache,
+						and persisted execution plans.
+
+						The application combines Retrieval-Augmented Generation (RAG) with
+						structured tools. Semantic search uses MongoDB Atlas Vector Search for
+						questions based on meaning or topic. Structured MongoDB queries are used
+						when deterministic results are required, including counting, filtering,
+						chronological ordering, date ranges, and upcoming events.
+
+						The assistant supports conversation memory, allowing it to preserve
+						context between messages using a conversation identifier. It also uses
+						semantic caching to reuse answers to sufficiently similar questions when
+						the operation is eligible for caching.
+
+						For compound requests, the application has an agentic planning layer.
+						The AI determines whether a request requires multiple dependent steps,
+						creates a short execution plan, and persists that plan in MongoDB.
+
+						Each plan contains an objective, ordered tasks, execution status,
+						intermediate results, errors, timestamps, and the names of the tools
+						used by each task. The execution layer runs one task at a time, provides
+						previous results as context for subsequent tasks, persists progress, and
+						synthesizes a final response after completing the plan.
+
+						The application also integrates with Calendly. It can retrieve available
+						meeting times and generate a scheduling link after collecting the
+						required information and obtaining the appropriate user confirmation.
+
+						The project is packaged as a Docker container using a Dockerfile and is
+						hosted on Google Cloud Run. Its source code is available on GitHub:
+						https://github.com/ricardohsmello/personal-content-rag.
+
+						Technologies and concepts: Java 21, Spring Boot, Spring AI, OpenAI,
+						MongoDB Atlas, MongoDB Vector Search, RAG, AI agents, tool calling,
+						dynamic planning, multi-step execution, conversation memory, semantic
+						cache, Docker, Google Cloud Run, and Calendly.
+						""",
+						Map.of(
+								"title", "Personal Content AI — RAG and AI Agent Project",
+								"category", "project",
+								"createdAt", "2026-08-12"
 						)
 				),
 				new Document(
