@@ -1,6 +1,6 @@
- # Personal Content AI
+# RicAI — Personal Content Agent
 
-A small AI assistant that helps people discover Ricardo Mello's professional background, articles, videos, talks, events, and projects.
+RicAI is an AI agent that helps people discover Ricardo Mello's professional background, articles, videos, talks, events, and projects. It combines RAG, structured tools, conversation memory, multi-step planning, and Calendly integration.
 
 Try it live at [ricardohsmello.com/ask-ai](https://www.ricardohsmello.com/ask-ai).
 

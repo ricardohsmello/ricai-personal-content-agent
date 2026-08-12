@@ -801,9 +801,9 @@ public class SeedContent implements ApplicationRunner {
 				),
 				new Document(
 						"""
-						Project: Personal Content AI.
+						Project: RicAI — Personal Content Agent.
 
-						Personal Content AI is an AI agent developed to help users discover
+						RicAI is an AI agent developed to help users discover
 						information about Ricardo Mello's professional background, articles,
 						videos, talks, events, and projects.
 
@@ -850,7 +850,7 @@ public class SeedContent implements ApplicationRunner {
 						cache, Docker, Google Cloud Run, and Calendly.
 						""",
 						Map.of(
-								"title", "Personal Content AI — RAG and AI Agent Project",
+								"title", "RicAI — Personal Content Agent",
 								"category", "project",
 								"createdAt", "2026-08-12"
 						)

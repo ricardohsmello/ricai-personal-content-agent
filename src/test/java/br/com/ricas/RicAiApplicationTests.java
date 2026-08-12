@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @EnabledIfEnvironmentVariable(named = "MONGODB_URI", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "OPENAI_API_KEY", matches = ".+")
-class PersonalContentRagApplicationTests {
+class RicAiApplicationTests {
 
 	@Test
 	void contextLoads() {

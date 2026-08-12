@@ -25,7 +25,7 @@ spring:
           mongo:
             create-indices: true
   application:
-    name: personal-content-rag
+    name: ricai-personal-content-agent
 agent:
   memory:
     max-messages: 50
@@ -35,7 +35,7 @@ calendly:
   scheduling-url: ${CALENDLY_SCHEDULING_URL:https://calendly.com/ricardohsmello/30min}
 devrel:
   application:
-    track-name: devrel-tutorial-java-content-rag
+    track-name: ricai-personal-content-agent
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: INFO

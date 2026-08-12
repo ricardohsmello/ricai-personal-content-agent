@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.ricas</groupId>
-	<artifactId>personal-content-rag</artifactId>
+	<artifactId>ricai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>RicAI</name>
+	<description>Personal content AI agent with RAG, planning, memory, and tools</description>
 	<url/>
 	<licenses>
 		<license/>

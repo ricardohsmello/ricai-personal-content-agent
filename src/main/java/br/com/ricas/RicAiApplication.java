@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PersonalContentRagApplication {
+public class RicAiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PersonalContentRagApplication.class, args);
+		SpringApplication.run(RicAiApplication.class, args);
 	}
 
 }
