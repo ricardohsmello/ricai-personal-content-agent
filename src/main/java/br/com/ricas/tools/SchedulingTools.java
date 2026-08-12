@@ -3,6 +3,7 @@ package br.com.ricas.tools;
 import br.com.ricas.model.AvailableMeetingTime;
 import br.com.ricas.model.SchedulingLinkResult;
 import br.com.ricas.service.CalendlyService;
+import br.com.ricas.service.ToolUsageTracker;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Component;
@@ -13,9 +14,11 @@ import java.util.List;
 public class SchedulingTools {
 
 	private final CalendlyService calendlyService;
+	private final ToolUsageTracker toolUsageTracker;
 
-	SchedulingTools(CalendlyService calendlyService) {
+	SchedulingTools(CalendlyService calendlyService, ToolUsageTracker toolUsageTracker) {
 		this.calendlyService = calendlyService;
+		this.toolUsageTracker = toolUsageTracker;
 	}
 
 	@Tool(description = """
@@ -29,32 +32,49 @@ public class SchedulingTools {
 			@ToolParam(description = "Range end as an ISO-8601 UTC instant, at most 31 days after start") String endTime,
 			@ToolParam(description = "Maximum number of times to return; use 5 when unspecified") int limit
 	) {
+		toolUsageTracker.record("findAvailableMeetingTimes");
 		return calendlyService.findAvailableTimes(startTime, endTime, limit);
 	}
 
 	@Tool(description = """
+			Lists Ricardo's next available meeting times starting from the actual
+			current instant calculated by the server. Use this capability when the
+			user asks for available times without specifying an exact date range.
+			Do not call getDate and do not ask the user for the current date.
+			""")
+	public List<AvailableMeetingTime> findNextAvailableMeetingTimes(
+			@ToolParam(description = "Number of future days to search; use 31 when unspecified, maximum 31")
+			int daysAhead,
+			@ToolParam(description = "Maximum number of times; use 5 when unspecified")
+			int limit
+	) {
+		toolUsageTracker.record("findNextAvailableMeetingTimes");
+		return calendlyService.findNextAvailableTimes(daysAhead, limit);
+	}
+
+	@Tool(description = """
 			Creates a public Calendly scheduling link prefilled with the invitee's
-			name, email, and a brief description of what they want to discuss, using
-			the exact schedulingUrl returned for the time selected from
-			findAvailableMeetingTimes. Ask for any missing or ambiguous information
-			before using this capability. This does not create a meeting; the user
-			must open the link and confirm the booking in Calendly. Present the
-			returned URL as a short, descriptive Markdown link in the user's
-			language; do not display the raw URL unless requested.
+			name, email, meeting description, and selected start time. The capability
+			rechecks Calendly availability and resolves the scheduling URL internally,
+			so the user never needs to provide or preserve a schedulingUrl. Ask for
+			missing or ambiguous information before using it. This does not create a
+			meeting; the user must open the link and finish the booking in Calendly.
+			Present the URL as a short, descriptive Markdown link.
 			""")
 	public SchedulingLinkResult createSchedulingLink(
 			@ToolParam(description = "Invitee's full name") String name,
 			@ToolParam(description = "Invitee's email address") String email,
 			@ToolParam(description = "Brief description of what the invitee wants to discuss")
 			String meetingDescription,
-			@ToolParam(description = "Exact schedulingUrl of the selected available time, as returned by findAvailableMeetingTimes")
-			String selectedSchedulingUrl
+			@ToolParam(description = "Selected available start time exactly as returned by findAvailableMeetingTimes, including UTC offset")
+			String selectedStartTime
 	) {
-		return calendlyService.createSchedulingLink(
+		toolUsageTracker.record("createSchedulingLink");
+		return calendlyService.createSchedulingLinkForTime(
 				name,
 				email,
 				meetingDescription,
-				selectedSchedulingUrl
+				selectedStartTime
 		);
 	}
 }
