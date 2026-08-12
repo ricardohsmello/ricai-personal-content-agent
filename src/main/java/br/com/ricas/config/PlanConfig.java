@@ -32,6 +32,7 @@ public class PlanConfig {
                     Examples that require a plan:
                     - Find recent events about AI and relate articles to each event.
                     - Find recent articles about Java and compare their topics.
+                    - Find the last article written and create a meeting with Ricardo to discuss the topic.
 
                     Examples that do not require a plan:
                     - Find my three latest articles.
@@ -40,13 +41,13 @@ public class PlanConfig {
                     - What was his first published article?
                     - List the three latest events.
                     - How many videos are available?
-                    - Schedule a meeting with Ricardo.
-                    - Find an event and then schedule a meeting about it.
+                    - Schedule a meeting with Ricardo without first retrieving
+                      information needed for the meeting subject.
                     - Explain Ricardo's experience with MongoDB.
 
-                    Any request involving scheduling, booking, Calendly, a call,
-                    or another external side effect must return requiresPlan=false.
-                    The regular assistant handles those requests with confirmation.
+                    Scheduling alone does not require a plan. Scheduling does require
+                    a plan when it depends on content that must be retrieved first,
+                    such as finding the latest event and using it as the meeting topic.
 
                     When uncertain, return requiresPlan=false. Do not create a plan
                     merely to split retrieval, item selection, and final presentation
@@ -78,6 +79,8 @@ public class PlanConfig {
                     - Find upcoming events.
                     - Find the latest events that already happened.
                     - Find content within a date range.
+                    - Find available Calendly meeting times.
+                    - Create a Calendly scheduling link.
 
                     Rules:
                     - Create between 2 and 5 steps.
@@ -88,8 +91,12 @@ public class PlanConfig {
                       summarization, and final presentation into separate plan steps.
                     - First, second, penultimate, latest, newest, oldest, and Nth-item
                       requests are one ordered lookup and must not become a plan.
-                    - Use only the available read-only content capabilities.
-                    - Do not create scheduling or external side-effect steps.
+                    - Read-only steps may retrieve content and Calendly availability.
+                    - Before the create-link step, include a read-only step that
+                      finds the requested available time and preserves its exact
+                      startTime, including the UTC offset.
+                    - Preserve user-provided name, email, meeting topic, and time
+                      preference in the relevant step instructions.
                     - Do not execute the steps.
                     - Do not invent capabilities.
                     - Preserve quantities and content categories.
@@ -97,8 +104,9 @@ public class PlanConfig {
                       the required date direction in the step.
                     - For topic requests combined with chronological ordering,
                       keep the topics and OR semantics explicit in the step.
-                    - The final step must synthesize the final user-facing answer
-                      from the previous step results and must not require a tool.
+                    - For read-only plans, the final step synthesizes the answer.
+                    - For scheduling plans, the create-link step is the
+                      final step and its tool result is the final answer.
                     - Return the plan in the same language as the user.
                     """)
                 .build();

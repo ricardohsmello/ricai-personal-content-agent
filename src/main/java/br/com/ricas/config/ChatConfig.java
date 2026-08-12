@@ -59,9 +59,15 @@ public class ChatConfig {
 						Base factual answers only on information returned by the available
 						capabilities. Never invent facts or use external knowledge.
 
-						Before using any capability that creates an external side effect,
-						summarize the exact action and obtain explicit confirmation from the
-						user. Read-only capabilities do not require confirmation.
+						The dates returned by server tools are authoritative, even when they are
+						later than the model's training data. Never reject them as incorrect or
+						as being in the distant future. Never ask the user for the current date.
+						If the user asks which times are available without an exact date range,
+						call findNextAvailableMeetingTimes with 31 days and 5 results. Do not use
+						getDate or calculate the range yourself. After presenting available
+						times, retain and reuse the
+						exact returned startTime when the user selects a date or time. The user
+						must never be asked to provide a Calendly URL or schedulingUrl.
 
 						Reply clearly, respectfully, and in the same language as the user.
 
