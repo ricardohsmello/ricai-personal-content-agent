@@ -1,7 +1,7 @@
 package br.com.ricas.config;
 
-import br.com.ricas.tools.ContentTools;
-import br.com.ricas.tools.SchedulingTools;
+import br.com.ricas.content.ContentTools;
+import br.com.ricas.scheduling.SchedulingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;

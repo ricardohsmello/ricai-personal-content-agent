@@ -1,7 +1,7 @@
 package br.com.ricas.config;
 
-import br.com.ricas.tools.ContentTools;
-import br.com.ricas.tools.SchedulingTools;
+import br.com.ricas.content.ContentTools;
+import br.com.ricas.scheduling.SchedulingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
