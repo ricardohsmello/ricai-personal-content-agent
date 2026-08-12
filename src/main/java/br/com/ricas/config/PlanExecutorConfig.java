@@ -1,6 +1,8 @@
 package br.com.ricas.config;
 
 import br.com.ricas.tools.ContentTools;
+import br.com.ricas.tools.SchedulingReadTools;
+import br.com.ricas.tools.SchedulingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,9 @@ public class PlanExecutorConfig {
     @Bean("planExecutorChatClient")
     public ChatClient planExecutorChatClient(
             OpenAiChatModel chatModel,
-            ContentTools contentTools
+            ContentTools contentTools,
+            SchedulingReadTools schedulingReadTools,
+            SchedulingTools schedulingTools
     ) {
         return ChatClient.builder(chatModel)
                 .defaultSystem("""
@@ -35,9 +39,18 @@ public class PlanExecutorConfig {
                         - For companies, employers, roles, job titles, employment
                           periods, or complete career history, use only
                           findProfessionalExperience, not semantic search.
+                        - When no exact range was specified, use
+                          findNextAvailableMeetingTimes with 31 days. When the user
+                          requests the first available time, use limit 1. Never ask
+                          for the current date or reject server dates as incorrect.
+                        - Preserve the selected time's exact startTime, including
+                          its UTC offset, so a later step can use it.
+                        - When the current step requests a scheduling link, call
+                          createSchedulingLink with the data from the plan and its
+                          previous results.
                         - Return only the result of the current step.
                         """)
-                .defaultTools(contentTools)
+                .defaultTools(contentTools, schedulingReadTools, schedulingTools)
                 .build();
     }
 }
