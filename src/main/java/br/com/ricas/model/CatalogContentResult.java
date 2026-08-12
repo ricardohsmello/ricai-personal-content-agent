@@ -1,5 +1,7 @@
 package br.com.ricas.model;
 
+import br.com.ricas.document.ContentKb;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
