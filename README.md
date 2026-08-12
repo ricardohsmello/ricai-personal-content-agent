@@ -42,10 +42,9 @@ MongoDB Atlas stores the content catalog, vector embeddings, conversation histor
 
 - Java 21
 - Spring Boot 4
-- Spring AI 2
+- Spring AI
 - OpenAI models and embeddings
 - MongoDB Atlas
-- MongoDB Vector Search
 - Maven
 - Docker
 

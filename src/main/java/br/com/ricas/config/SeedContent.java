@@ -838,7 +838,7 @@ public class SeedContent implements ApplicationRunner {
 
 						The application also integrates with Calendly. It can retrieve available
 						meeting times and generate a scheduling link after collecting the
-						required information and obtaining the appropriate user confirmation.
+						required information.
 
 						The project is packaged as a Docker container using a Dockerfile and is
 						hosted on Google Cloud Run. Its source code is available on GitHub:
