@@ -2,6 +2,8 @@ package br.com.ricas.service;
 
 import br.com.ricas.model.AvailableMeetingTime;
 import br.com.ricas.model.SchedulingLinkResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ public class CalendlyService {
 	private static final int MAX_LIMIT = 10;
 	private static final Duration MAX_AVAILABILITY_PERIOD = Duration.ofDays(31);
 	private static final ZoneId DISPLAY_TIMEZONE = ZoneId.of("America/Sao_Paulo");
+
+	private final Logger logger = LoggerFactory.getLogger(CalendlyService.class);
 
 	private final RestClient calendlyClient;
 	private final String accessToken;
@@ -49,6 +54,8 @@ public class CalendlyService {
 			String endTime,
 			int limit
 	) {
+		logger.info("Calling findAvailableTimes calendly");
+
 		validateConfiguration();
 
 		Instant start = Instant.parse(startTime);
@@ -78,6 +85,17 @@ public class CalendlyService {
 				.toList();
 	}
 
+	public List<AvailableMeetingTime> findNextAvailableTimes(
+			int daysAhead,
+			int limit
+	) {
+		int effectiveDays = daysAhead <= 0 ? 31 : Math.min(daysAhead, 31);
+		Instant start = Instant.now().plusSeconds(5);
+		Instant end = start.plus(Duration.ofDays(effectiveDays));
+
+		return findAvailableTimes(start.toString(), end.toString(), limit);
+	}
+
 	private String toDisplayTime(String utcStartTime) {
 		requireText(utcStartTime, "start_time");
 		return Instant.parse(utcStartTime)
@@ -92,6 +110,8 @@ public class CalendlyService {
 			String meetingDescription,
 			String selectedSchedulingUrl
 	) {
+		logger.info("Calling createSchedulingLink calendly");
+
 		requireText(name, "name");
 		requireText(email, "email");
 		requireText(meetingDescription, "meetingDescription");
@@ -108,6 +128,47 @@ public class CalendlyService {
 				.toUriString();
 
 		return new SchedulingLinkResult(prefilledUrl);
+	}
+
+	public SchedulingLinkResult createSchedulingLinkForTime(
+			String name,
+			String email,
+			String meetingDescription,
+			String selectedStartTime
+	) {
+		logger.info("Calling createSchedulingLinkForTime calendly");
+
+		requireText(selectedStartTime, "selectedStartTime");
+		Instant selectedInstant = OffsetDateTime.parse(selectedStartTime).toInstant();
+		Instant rangeStart = selectedInstant.minusSeconds(60);
+		Instant minimumStart = Instant.now().plusSeconds(1);
+
+		if (rangeStart.isBefore(minimumStart)) {
+			rangeStart = minimumStart;
+		}
+
+		List<AvailableMeetingTime> availableTimes = findAvailableTimes(
+				rangeStart.toString(),
+				selectedInstant.plusSeconds(60).toString(),
+				MAX_LIMIT
+		);
+
+		String selectedSchedulingUrl = availableTimes.stream()
+				.filter(time -> OffsetDateTime.parse(time.startTime())
+						.toInstant()
+						.equals(selectedInstant))
+				.map(AvailableMeetingTime::schedulingUrl)
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException(
+						"The selected time is no longer available"
+				));
+
+		return createSchedulingLink(
+				name,
+				email,
+				meetingDescription,
+				selectedSchedulingUrl
+		);
 	}
 
 	private void validateSelectedSchedulingUrl(String selectedSchedulingUrl) {
