@@ -41,18 +41,16 @@ class TaskPlanServiceTest {
     }
 
     @Test
-    void shouldMarkExternalActionAsRequiringConfirmation() {
+    void shouldKeepSchedulingInstructionsUnchanged() {
         TaskPlan plan = service.create(
                 "conversation-2",
                 "Schedule a meeting",
                 List.of(
                         "Find the first available time",
-                        "[CONFIRMATION_REQUIRED] Create the scheduling link"
+                        "Create the scheduling link"
                 )
         );
 
-        assertFalse(plan.steps().getFirst().requiresConfirmation());
-        assertTrue(plan.steps().get(1).requiresConfirmation());
         assertEquals(
                 "Create the scheduling link",
                 plan.steps().get(1).instruction()

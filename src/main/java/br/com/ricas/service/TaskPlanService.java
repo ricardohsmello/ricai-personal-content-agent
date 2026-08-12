@@ -16,12 +16,9 @@ import java.util.stream.IntStream;
 @Service
 public class TaskPlanService {
 
-    private static final String CONFIRMATION_MARKER = "[CONFIRMATION_REQUIRED]";
-
     private static final List<PlanStatus> ACTIVE_STATUSES = List.of(
             PlanStatus.CREATED,
-            PlanStatus.RUNNING,
-            PlanStatus.WAITING_USER
+            PlanStatus.RUNNING
     );
 
     private final TaskPlanRepository repository;
@@ -48,7 +45,6 @@ public class TaskPlanService {
                 conversationId,
                 objective,
                 PlanStatus.CREATED,
-                false,
                 createSteps(instructions),
                 now,
                 now
@@ -78,11 +74,6 @@ public class TaskPlanService {
             );
         }
 
-        if (plan.status() == PlanStatus.WAITING_USER
-                && !plan.confirmationGranted()) {
-            return plan;
-        }
-
         Optional<PlanStep> runningStep = plan.steps().stream()
                 .filter(step -> step.status() == StepStatus.RUNNING)
                 .findFirst();
@@ -99,11 +90,6 @@ public class TaskPlanService {
             return saveWithStatus(plan, PlanStatus.COMPLETED);
         }
 
-        if (nextStep.get().requiresConfirmation()
-                && !plan.confirmationGranted()) {
-            return saveWithStatus(plan, PlanStatus.WAITING_USER);
-        }
-
         Instant now = Instant.now();
         String stepId = nextStep.get().id();
 
@@ -113,7 +99,6 @@ public class TaskPlanService {
                         step.id(),
                         step.order(),
                         step.instruction(),
-                        step.requiresConfirmation(),
                         StepStatus.RUNNING,
                         step.result(),
                         step.toolsUsed(),
@@ -155,25 +140,6 @@ public class TaskPlanService {
         return save(plan, status, updatedSteps);
     }
 
-    public TaskPlan confirm(String planId) {
-        TaskPlan plan = findById(planId);
-
-        if (plan.status() != PlanStatus.WAITING_USER) {
-            throw new IllegalStateException("Plan is not waiting for confirmation");
-        }
-
-        return repository.save(new TaskPlan(
-                plan.id(),
-                plan.conversationId(),
-                plan.objective(),
-                PlanStatus.RUNNING,
-                true,
-                plan.steps(),
-                plan.createdAt(),
-                Instant.now()
-        ));
-    }
-
     public TaskPlan failStep(
             String planId,
             String stepId,
@@ -208,7 +174,6 @@ public class TaskPlanService {
                 step.id(),
                 step.order(),
                 step.instruction(),
-                step.requiresConfirmation(),
                 StepStatus.COMPLETED,
                 result,
                 List.copyOf(toolsUsed),
@@ -234,7 +199,6 @@ public class TaskPlanService {
                 step.id(),
                 step.order(),
                 step.instruction(),
-                step.requiresConfirmation(),
                 StepStatus.FAILED,
                 null,
                 List.copyOf(toolsUsed),
@@ -268,7 +232,6 @@ public class TaskPlanService {
                 plan.conversationId(),
                 plan.objective(),
                 status,
-                plan.confirmationGranted(),
                 steps,
                 plan.createdAt(),
                 Instant.now()
@@ -280,8 +243,7 @@ public class TaskPlanService {
                 .mapToObj(index -> new PlanStep(
                         UUID.randomUUID().toString(),
                         index + 1,
-                        removeConfirmationMarker(instructions.get(index)),
-                        instructions.get(index).startsWith(CONFIRMATION_MARKER),
+                        instructions.get(index),
                     StepStatus.PENDING,
                     null,
                     List.of(),
@@ -292,9 +254,4 @@ public class TaskPlanService {
                 .toList();
     }
 
-    private String removeConfirmationMarker(String instruction) {
-        return instruction.startsWith(CONFIRMATION_MARKER)
-                ? instruction.substring(CONFIRMATION_MARKER.length()).trim()
-                : instruction;
-    }
 }

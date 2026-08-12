@@ -21,7 +21,6 @@ public record TaskPlan(
         String conversationId,
         String objective,
         PlanStatus status,
-        boolean confirmationGranted,
         List<PlanStep> steps,
         Instant createdAt,
         Instant updatedAt

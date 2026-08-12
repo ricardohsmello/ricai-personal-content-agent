@@ -36,8 +36,7 @@ public class PlanExecutorService {
             plan = executeNext(planId);
 
             if (plan.status() == PlanStatus.COMPLETED
-                    || plan.status() == PlanStatus.FAILED
-                    || plan.status() == PlanStatus.WAITING_USER) {
+                    || plan.status() == PlanStatus.FAILED) {
                 return plan;
             }
         }
