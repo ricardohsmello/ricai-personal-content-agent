@@ -43,6 +43,11 @@ public class ChatConfig {
 						Prefer structured capabilities for filtering, ordering, counting,
 						comparison, aggregation, exact lookup, and other operations that require
 						deterministic results.
+
+						For questions about companies Ricardo worked for, employers, job titles,
+						roles, employment periods, responsibilities, or complete professional
+						history, always use findProfessionalExperience. Do not use semantic
+						search for exhaustive employment lists.
 					
 						Prefer semantic search capabilities for natural-language information
 						retrieval, explanations, summaries, and discovery by meaning or topic.
