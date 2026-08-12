@@ -3,10 +3,12 @@ package br.com.ricas.tools;
 import br.com.ricas.model.CatalogContentResult;
 import br.com.ricas.model.ContentResult;
 import br.com.ricas.service.KnowledgeBaseService;
+import br.com.ricas.service.ToolUsageTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,13 +21,19 @@ public class ContentTools {
 			LoggerFactory.getLogger(ContentTools.class);
 
 	private final KnowledgeBaseService knowledgeBaseService;
+	private final ToolUsageTracker toolUsageTracker;
 
-	ContentTools(KnowledgeBaseService knowledgeBaseService) {
+	ContentTools(
+			KnowledgeBaseService knowledgeBaseService,
+			ToolUsageTracker toolUsageTracker
+	) {
 		this.knowledgeBaseService = knowledgeBaseService;
+		this.toolUsageTracker = toolUsageTracker;
 	}
 
 	@Tool(description = "Get the current date")
 	public Date getDate() {
+		toolUsageTracker.record("getDate");
 		logger.info("Calling getDate");
 
 		return new Date();
@@ -34,7 +42,8 @@ public class ContentTools {
 	@Tool(description = """
 			Retrieves content from Ricardo Mello's catalog by category, ordered by
 			publication date from newest to oldest. Returns up to the requested number
-			of results. Suitable for chronological and recent-content lookups.
+			of results. Use only for unfiltered recent-content lookups. Do not use it
+			for oldest/first content or for content filtered by topic.
 			""")
 	public List<CatalogContentResult> findRecentContent(
 			@ToolParam(description = "Content category: article, video, event, or project. Use event for talks")
@@ -42,8 +51,80 @@ public class ContentTools {
 			@ToolParam(description = "Number of items: 1 for singular requests, or 5 when unspecified")
 			int limit
 	) {
-
+		toolUsageTracker.record("findRecentContent");
 		return knowledgeBaseService.findByMetadataCategory(category.toLowerCase(), limit);
+	}
+
+	@Tool(description = """
+			Retrieves Ricardo Mello's complete professional employment history,
+			ordered from the most recent experience to the oldest. Use this capability
+			for exact questions about every company he worked for, previous employers,
+			job titles, roles, employment periods, responsibilities, or career history.
+			This structured capability returns all experience records and must be used
+			instead of semantic search for complete or exhaustive employment lists.
+			""")
+	public List<CatalogContentResult> findProfessionalExperience() {
+		toolUsageTracker.record("findProfessionalExperience");
+		return knowledgeBaseService.findProfessionalExperience();
+	}
+
+	@Tool(description = """
+			Retrieves content from Ricardo Mello's catalog by category and publication
+			date. Use ASC to find the oldest or first published content. Use DESC to
+			find the newest or latest content. This operation is deterministic.
+			""")
+	public List<CatalogContentResult> findContentByDate(
+			@ToolParam(description = "Content category: article, video, event, or project")
+			String category,
+			@ToolParam(description = "Date direction: ASC for oldest/first, DESC for newest/latest")
+			String direction,
+			@ToolParam(description = "Maximum number of results; use 1 for singular requests")
+			int limit
+	) {
+		toolUsageTracker.record("findContentByDate");
+		return knowledgeBaseService.findByCategoryOrderedByDate(
+				category,
+				parseDirection(direction),
+				limit
+		);
+	}
+
+	@Tool(description = """
+			Retrieves content matching any of the supplied topics, filtered by exact
+			category and ordered by publication date. Topic matching uses OR semantics.
+			Use this for requests such as the latest articles about AI or Kotlin.
+			Use ASC for oldest and DESC for newest. This is preferable to semantic
+			search when chronological ordering must be guaranteed.
+			""")
+	public List<CatalogContentResult> findContentByTopics(
+			@ToolParam(description = "Content category: article, video, event, or project")
+			String category,
+			@ToolParam(description = "Topics to match using OR semantics, for example [AI, Kotlin]")
+			List<String> topics,
+			@ToolParam(description = "Date direction: ASC for oldest, DESC for newest")
+			String direction,
+			@ToolParam(description = "Maximum number of results")
+			int limit
+	) {
+		toolUsageTracker.record("findContentByTopics");
+		return knowledgeBaseService.findByTopicsOrderedByDate(
+				category,
+				topics,
+				parseDirection(direction),
+				limit
+		);
+	}
+
+	private Sort.Direction parseDirection(String direction) {
+		try {
+			return Sort.Direction.fromString(direction);
+		}
+		catch (IllegalArgumentException exception) {
+			throw new IllegalArgumentException(
+					"direction must be ASC or DESC",
+					exception
+			);
+		}
 	}
 
 	@Tool(description = """
@@ -69,6 +150,7 @@ public class ContentTools {
                 """)
 			int limit
 	) {
+		toolUsageTracker.record("searchKnowledgeBase");
 		return knowledgeBaseService.searchKnowledgeBase(query, limit);
 	}
 
@@ -84,6 +166,7 @@ public class ContentTools {
 			)
 			String category
 	) {
+		toolUsageTracker.record("countContent");
 		return knowledgeBaseService.countByMetadataCategory(category);
 	}
 
@@ -99,7 +182,23 @@ public class ContentTools {
 			)
 			int limit
 	) {
+		toolUsageTracker.record("findUpcomingEvents");
 		return knowledgeBaseService.findUpcomingEvents(limit);
+	}
+
+	@Tool(description = """
+			Retrieves events and talks that already happened, ordered from the most
+			recent past event to the oldest. Use this for requests about Ricardo's
+			latest, last, or most recent event that has already occurred. It excludes
+			today and all future events. Do not combine findUpcomingEvents with
+			findContentByDate for this purpose.
+			""")
+	public List<CatalogContentResult> findLatestPastEvents(
+			@ToolParam(description = "Maximum number of past events; use 1 for the latest event")
+			int limit
+	) {
+		toolUsageTracker.record("findLatestPastEvents");
+		return knowledgeBaseService.findLatestPastEvents(limit);
 	}
 
 	@Tool(description = """
@@ -129,6 +228,7 @@ public class ContentTools {
 			)
 			int limit
 	) {
+		toolUsageTracker.record("findContentByPeriod");
 		return knowledgeBaseService.findContentByPeriod(category, startDate, endDate, limit);
 	}
 

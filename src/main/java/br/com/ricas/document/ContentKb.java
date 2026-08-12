@@ -1,4 +1,4 @@
-package br.com.ricas.model;
+package br.com.ricas.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
