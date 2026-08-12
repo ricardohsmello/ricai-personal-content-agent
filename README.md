@@ -6,25 +6,25 @@ Try it live at [ricardohsmello.com/ask-ai](https://www.ricardohsmello.com/ask-ai
 
 ## How it works
 
-Each message first passes through a router that decides whether it can be handled directly or requires a multi-step plan.
+Each message first passes through an AI router. It makes one simple decision: can the request be completed in a single step, or does it need a plan with multiple connected steps?
 
 - **Direct requests:** the assistant loads recent conversation memory and selects the appropriate tool. Structured MongoDB queries handle exact operations such as counting, ordering, date ranges, professional experience, and events. MongoDB Vector Search handles discovery by meaning or topic.
 - **Multi-step research:** when one operation depends on the result of another, the assistant creates a short plan, persists it in MongoDB, executes one step at a time, and stores each result, status, timestamp, and tool used.
-- **Scheduling:** the assistant can find available Calendly times and create a scheduling link. Operations with an external side effect require explicit user confirmation.
+- **Scheduling:** the assistant can find available Calendly times and create a scheduling link.
 
 Simple selection and formatting do not create a plan. For example, finding the penultimate video is one structured lookup; finding events and then searching for articles related to each event requires a plan.
 
 ```mermaid
 flowchart TD
-    Q["User message"] --> R{"Needs dependent tool calls?"}
+    Q["User message"] --> R{"AI router: Can this request be completed in one step?"}
 
-    R -->|"No"| M["Load conversation memory"]
+    R -->|"Yes: answer directly"| M["Load conversation memory"]
     M --> D{"Choose capability"}
     D -->|"Exact data"| T["Structured MongoDB tool"]
     D -->|"Meaning or topic"| V["MongoDB Vector Search"]
     D -->|"Schedule a call"| C["Calendly tools"]
 
-    R -->|"Yes"| P["Create and persist plan"]
+    R -->|"No: build a plan"| P["Create and persist plan"]
     P --> E["Execute current step"]
     E --> S["Store result, status, and tools used"]
     S -->|"More steps"| E
