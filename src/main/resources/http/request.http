@@ -2,7 +2,15 @@ POST http://localhost:8080/chat
 Content-Type: application/json
 
 {
-  "message": "Hey, how are you?"
+  "conversationId": "chat-test-1",
+  "message": "Qual foi o último artigo do Ricardo?"
 }
 
-###
+### Agentic request: route, create plan, execute and answer
+POST http://localhost:8080/chat
+Content-Type: application/json
+
+{
+  "conversationId": "agent-test-1",
+  "message": "Encontre os eventos mais recentes sobre IA e mostre artigos relacionados aos temas de cada evento"
+}

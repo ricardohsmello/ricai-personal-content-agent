@@ -144,6 +144,14 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
+						"Event: An exclusive MongoDB session for Senior Sistemas, covering MongoDB fundamentals, best practices, and modern application development.",
+						Map.of(
+								"title", "MongoDB Day - Senior Sistemas",
+								"category", "event",
+								"createdAt", "2026-08-14"
+						)
+				),
+				new Document(
 						"Event: MongoDB Build & Learn Series - MongoDB Overview. 1st Session Date: September 15, 2026. Location: Online. Format/type: Workshop. Status: upcoming.",
 						Map.of(
 								"title", "MongoDB Build & Learn Series - MongoDB Overview",
@@ -216,7 +224,7 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
-						"Event: Talk at DevStandup. Talk/topic: Real-Time Fraud Detection in Java with Kafka, Streams & Vector Similarity. Spoke on DevStandup about Vector Search and Kafka Streams Date: Apr 2026. Location: Remote, Global. Format/type: Community. Status: past event. Highlight: Youtube Community. Episode #27 of DevStandup features Ricardo Mello, Senior Developer Advocate at MongoDB, breaking down how to build a real-time fraud detection system in Java—without training your own ML model. This session focuses on what most teams get wrong: overengineering fraud systems when simple, fast pipelines and good heuristics already solve 80% of the problem. In 'Real-Time Fraud Detection in Java with Kafka, Streams & Vector Similarity', Ricardo shows how to ship a system that actually works under pressure. This episode is for developers who want working systems, not theoretical architectures that never make it to production. The full project code — including the Kafka Streams pipeline and MongoDB Vector Search integration — is available on [GitHub](https://github.com/ricardohsmello/fraud-detection-streams-vector). You can watch the full episode on [YouTube](https://www.youtube.com/watch?v=erGc9YkQ0i8). Event page: https://ricardohsmello.com/events/talkdevstandup-vector-2026.",
+						"Event: Talk at DevStandup. Talk/topic: Real-Time Fraud Detection in Java with Kafka, Streams & Vector Similarity. Date: Apr 2026. Location: Remote, Global. Format/type: Community / YouTube. Status: past event. Highlight: Remote community presentation adapted from the original DevNexus 2026 conference talk. Episode #27 of DevStandup features Ricardo Mello discussing the fraud detection architecture previously presented with Tim Kelly at DevNexus 2026. The session explains how Java, Kafka Streams, and MongoDB Vector Search can be used to detect suspicious transactions in real time without training a custom ML model. This version focused on explaining the project and architecture to the DevStandup YouTube community. Project code: https://github.com/ricardohsmello/fraud-detection-streams-vector. YouTube: https://www.youtube.com/watch?v=erGc9YkQ0i8. Event page: https://ricardohsmello.com/events/talkdevstandup-vector-2026.",
 						Map.of(
 								"title", "Talk at DevStandup",
 								"category", "event",
@@ -232,7 +240,7 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
-						"Event: Dev/nexus. Talk/topic: Real-Time Fraud Detection. Spoke on real-time fraud detection using Kafka Streams, Spring Boot, and MongoDB. Also hosted a mentorship session on careers in Developer Relations. Date: Mar 2026. Location: Atlanta, USA. Format/type: Conference. Status: past event. Highlight: First tech talk delivered in English. DevNexus is one of the largest Java conferences in the United States, bringing together thousands of developers to discuss modern software architecture, cloud technologies, and the future of the Java ecosystem. In 2026, I had the opportunity to speak at DevNexus for the first time, and it was also my first time delivering a full technical session in English. During the session, I presented a real-world architecture for real-time fraud detection, demonstrating how modern event-driven systems can process transactions and make decisions in milliseconds. The talk explored how technologies like Kafka Streams, Spring Boot, and MongoDB can be combined to build resilient systems capable of handling high-throughput data streams while maintaining low latency. In addition to the technical talk, I also hosted a mentorship session during the conference focused on career growth in the developer ecosystem, speaking with developers interested in understanding the transition from software engineering to Developer Relations. Presenting at DevNexus was an important milestone in my journey as a Developer Advocate and a great opportunity to share technical knowledge with the global Java community. Event page: https://ricardohsmello.com/events/devnexus-2026.",
+						"Event: DevNexus 2026. Talk/topic: Real-Time Fraud Detection in Java with Kafka Streams and Vector Similarity. Ricardo Mello and Tim Kelly presented this technical session at DevNexus 2026 in Atlanta. The talk demonstrated how to build a real-time fraud detection system using Java, Kafka Streams, Spring Boot, MongoDB, and Vector Similarity / Vector Search. Date: Mar 2026. Location: Atlanta, USA. Format/type: Conference. Status: past event. Highlight: Original conference presentation and first full technical talk delivered in English. This was the original talk that later inspired the article 'Real-Time Fraud Detection in Java with Kafka Streams and Vector Similarity' published on Dev.to. DevNexus is one of the largest Java conferences in the United States. During the session, Ricardo and Tim presented a real-world event-driven architecture capable of processing transactions and detecting suspicious behavior in real time using Kafka Streams and MongoDB Vector Search. In addition to the technical talk, Ricardo hosted a mentorship session focused on careers in Developer Relations. Event page: https://ricardohsmello.com/events/devnexus-2026.",
 						Map.of(
 								"title", "Dev/nexus",
 								"category", "event",
