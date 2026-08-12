@@ -32,6 +32,7 @@ public class PlanConfig {
                     Examples that require a plan:
                     - Find recent events about AI and relate articles to each event.
                     - Find recent articles about Java and compare their topics.
+                    - Find a talk Ricardo already gave and compare it with a related article.
                     - Find the last article written and create a meeting with Ricardo to discuss the topic.
 
                     Examples that do not require a plan:
@@ -89,6 +90,10 @@ public class PlanConfig {
                       tool calls where a later tool call depends on an earlier result.
                     - Do not turn retrieval, ordinal item selection, formatting,
                       summarization, and final presentation into separate plan steps.
+                    - Each plan step must represent one useful tool-backed operation.
+                      Topic extraction, result selection, comparison, synthesis, and
+                      response writing must be performed within a retrieval step and
+                      must never become standalone steps.
                     - First, second, penultimate, latest, newest, oldest, and Nth-item
                       requests are one ordered lookup and must not become a plan.
                     - Read-only steps may retrieve content and Calendly availability.
@@ -104,10 +109,29 @@ public class PlanConfig {
                       the required date direction in the step.
                     - For topic requests combined with chronological ordering,
                       keep the topics and OR semantics explicit in the step.
-                    - For read-only plans, the final step synthesizes the answer.
+                    - When the user asks about a talk Ricardo gave, presented, or
+                      participated in, use past events and explicitly exclude upcoming
+                      events. Use upcoming events only when the user clearly asks for
+                      future, scheduled, next, or upcoming events.
+                    - A plan that relates a past talk to an article must contain
+                      exactly two steps: first retrieve past talks with enough detail
+                      to identify their technical subjects; then semantically search
+                      for related articles and return the strongest pair with the
+                      requested comparison in that same final step.
+                    - For read-only plans, the final tool-backed step must synthesize
+                      and fully answer the user's request.
+                    - Never add a follow-up step merely to select, compare, explain,
+                      format, or present results.
                     - For scheduling plans, the create-link step is the
                       final step and its tool result is the final answer.
                     - Return the plan in the same language as the user.
+
+                    Example for relating a talk to an article:
+                    1. Retrieve past talks by Ricardo, excluding upcoming events, with
+                       enough detail to identify their technical subjects.
+                    2. Semantically search for articles matching those subjects,
+                       select the strongest supported relationship, and directly
+                       explain the parallel between the talk and article.
                     """)
                 .build();
     }
