@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "conversationId": "chat-test-1",
-  "message": "Qual foi o último artigo do Ricardo?"
+  "message": "What was Ricardo's latest article?"
 }
 
 ### Agentic request: route, create plan, execute and answer
@@ -12,5 +12,5 @@ Content-Type: application/json
 
 {
   "conversationId": "agent-test-1",
-  "message": "Encontre os eventos mais recentes sobre IA e mostre artigos relacionados aos temas de cada evento"
+  "message": "Find the most recent events about AI and show articles related to each event's topics"
 }
