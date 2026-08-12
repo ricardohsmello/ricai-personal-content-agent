@@ -1,7 +1,6 @@
 package br.com.ricas.config;
 
 import br.com.ricas.tools.ContentTools;
-import br.com.ricas.tools.SchedulingReadTools;
 import br.com.ricas.tools.SchedulingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -15,7 +14,6 @@ public class PlanExecutorConfig {
     public ChatClient planExecutorChatClient(
             OpenAiChatModel chatModel,
             ContentTools contentTools,
-            SchedulingReadTools schedulingReadTools,
             SchedulingTools schedulingTools
     ) {
         return ChatClient.builder(chatModel)
@@ -50,7 +48,7 @@ public class PlanExecutorConfig {
                           previous results.
                         - Return only the result of the current step.
                         """)
-                .defaultTools(contentTools, schedulingReadTools, schedulingTools)
+                .defaultTools(contentTools, schedulingTools)
                 .build();
     }
 }
