@@ -29,6 +29,8 @@ spring:
 agent:
   memory:
     max-messages: 50
+  rate-limit:
+    max-requests-per-minute: ${CHAT_RATE_LIMIT_MAX_REQUESTS_PER_MINUTE:8}
 calendly:
   access-token: ${CALENDLY_ACCESS_TOKEN:}
   event-type-uri: ${CALENDLY_EVENT_TYPE_URI:}
