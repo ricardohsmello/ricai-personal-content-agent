@@ -808,6 +808,14 @@ public class SeedContent implements ApplicationRunner {
 						)
 				),
 				new Document(
+						"Project: RicasFlix. A movie discovery and search application built with Java, Spring Boot, and MongoDB. The project demonstrates how to build a hybrid search experience by combining MongoDB Full-Text Search with Vector Search, allowing users to find movies using both traditional keyword matching and semantic similarity. The application runs on Google Cloud Platform (GCP) and showcases a practical implementation of modern search techniques with Java and MongoDB. Technologies/topics: Java, Spring Boot, Spring Data MongoDB, MongoDB Atlas, Full-Text Search, Vector Search, Hybrid Search, Semantic Search, GCP. Featured on the website: yes. Learn more: https://foojay.io/today/beyond-keywords-implementing-semantic-search-in-java-with-spring-data-part-1/.",
+						Map.of(
+								"title", "RicasFlix",
+								"category", "project",
+								"createdAt", "2026-08-15"
+						)
+				),
+				new Document(
 						"""
 						Project: RicAI — Personal Content Agent.
 

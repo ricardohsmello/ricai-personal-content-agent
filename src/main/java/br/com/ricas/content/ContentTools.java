@@ -129,7 +129,10 @@ public class ContentTools {
 
         Use this capability to discover information by meaning or topic,
         including professional background, technologies, articles, videos,
-        events, talks, and projects.
+		events, talks, projects, contact information, and social-network profiles.
+		Always use it for questions about how to contact Ricardo or requests for
+		his email, GitHub, LinkedIn, Twitter/X, Medium, Foojay.io, YouTube, Dev.to,
+		Calendly, social profiles, handles, or profile links.
 
         This search is suitable for explanations, summaries, topic discovery,
         and natural-language questions. It is not suitable for chronological
