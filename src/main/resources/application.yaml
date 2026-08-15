@@ -3,7 +3,7 @@ server:
 spring:
   mongodb:
     uri: ${MONGODB_URI}
-    database: ${MONGODB_DATABASE:personal_content}
+    database: ${MONGODB_DATABASE:ric_ai}
   data:
     mongodb:
       auto-index-creation: true
