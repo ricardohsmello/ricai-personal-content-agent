@@ -886,6 +886,32 @@ public class SeedContent implements ApplicationRunner {
 								"category", "contact",
 								"createdAt", "2026-08-10"
 						)
+				),
+				new Document(
+						"Article: Building an Agentic Warehouse Management System — Part 1: Where AI Agents Add Value. Explores where AI agents can add value in a Warehouse Management System without replacing deterministic business logic. Type: Article. Published on Foojay in 2026-09. Topics: Java, AI Agents, Warehouse Management System, Spring AI, MongoDB. Featured on the website: yes. Link: https://foojay.io/today/building-an-agentic-warehouse-management-system-part-1-where-ai-agents-add-value/.",
+						Map.of(
+								"title", "Building an Agentic Warehouse Management System — Part 1: Where AI Agents Add Value",
+								"category", "article",
+								"createdAt", "2026-09-01"
+						)
+				),
+
+				new Document(
+						"Article: Building an Agentic Warehouse Management System — Part 2: Java and Spring AI. Shows how to define and connect the agent using Java and Spring AI, including capabilities, planning, task execution, and execution tracking. Type: Article. Published on Foojay in 2026-09. Topics: Java, Spring AI, AI Agents, Agentic AI, MongoDB. Featured on the website: yes. Link: https://foojay.io/today/building-an-agentic-warehouse-management-system-part-2-java-and-spring-ai/.",
+						Map.of(
+								"title", "Building an Agentic Warehouse Management System — Part 2: Java and Spring AI",
+								"category", "article",
+								"createdAt", "2026-09-01"
+						)
+				),
+
+				new Document(
+						"Article: Building an Agentic Warehouse Management System — Part 3: Tools, Decisions, and Actions. Explores how the agent uses controlled tools, retrieves context, makes replenishment decisions, and takes action when necessary. Type: Article. Published on Foojay in 2026-09. Topics: Java, Spring AI, AI Agents, Tools, MongoDB. Featured on the website: yes. Link: https://foojay.io/today/building-an-agentic-warehouse-management-system-part-3-tools-decisions-and-actions/.",
+						Map.of(
+								"title", "Building an Agentic Warehouse Management System — Part 3: Tools, Decisions, and Actions",
+								"category", "article",
+								"createdAt", "2026-09-01"
+						)
 				)
 		);
 		vectorStore.add(listDocuments);
