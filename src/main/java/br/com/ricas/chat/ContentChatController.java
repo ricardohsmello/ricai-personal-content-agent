@@ -1,4 +1,7 @@
 package br.com.ricas.chat;
+import br.com.ricas.plan.TaskPlanService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,19 +23,36 @@ public class ContentChatController {
 
 	private final AgentService agentService;
 	private final ConversationRateLimitService rateLimitService;
+	private final TaskPlanService taskPlanService;
 
 	ContentChatController(
 			AgentService agentService,
-			ConversationRateLimitService rateLimitService
+			ConversationRateLimitService rateLimitService,
+			TaskPlanService taskPlanService
 	) {
 		this.agentService = agentService;
 		this.rateLimitService = rateLimitService;
+		this.taskPlanService = taskPlanService;
+	}
+
+	@GetMapping("/progress/{conversationId}")
+	public ResponseEntity<AgentProgressResponse> progress(
+			@PathVariable String conversationId
+	) {
+		if (invalidConversationId(conversationId)) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		return taskPlanService.findLatest(conversationId)
+				.map(AgentProgressResponse::from)
+				.map(ResponseEntity::ok)
+				.orElseGet(() -> ResponseEntity.noContent().build());
 	}
 
 	@PostMapping
 	public ResponseEntity<String> chat(@RequestBody ChatRequest chatRequest) {
 		String conversationId = chatRequest.conversationId();
-		if (conversationId == null || conversationId.isBlank() || conversationId.length() > 100) {
+		if (invalidConversationId(conversationId)) {
 			return ResponseEntity.status(BAD_REQUEST).body("Invalid conversationId.");
 		}
 
@@ -47,6 +67,12 @@ public class ContentChatController {
 		}
 
 		return ResponseEntity.ok(agentService.respond(chatRequest));
+	}
+
+	private boolean invalidConversationId(String conversationId) {
+		return conversationId == null
+				|| conversationId.isBlank()
+				|| conversationId.length() > 100;
 	}
 
 }

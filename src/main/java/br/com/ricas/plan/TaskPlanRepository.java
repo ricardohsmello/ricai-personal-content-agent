@@ -7,6 +7,10 @@ import java.util.Optional;
 public interface TaskPlanRepository
         extends MongoRepository<TaskPlan, String> {
 
+    Optional<TaskPlan> findFirstByConversationIdOrderByCreatedAtDesc(
+            String conversationId
+    );
+
     Optional<TaskPlan> findFirstByConversationIdAndStatusInOrderByCreatedAtDesc(
             String conversationId,
             Collection<PlanStatus> statuses

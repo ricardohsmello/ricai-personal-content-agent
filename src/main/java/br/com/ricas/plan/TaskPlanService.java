@@ -55,6 +55,12 @@ public class TaskPlanService {
                 );
     }
 
+    public Optional<TaskPlan> findLatest(String conversationId) {
+        return repository.findFirstByConversationIdOrderByCreatedAtDesc(
+                conversationId
+        );
+    }
+
     public TaskPlan startNextStep(String planId) {
         TaskPlan plan = findById(planId);
 
