@@ -112,6 +112,43 @@ public class SeedContent implements ApplicationRunner {
 							)
 					),
 				new Document(
+						"Ricardo Mello's academic background at UFSCar (Universidade Federal de São Carlos). " +
+								"Degree: Postgraduate specialization in Web Software Development, Computer Science. " +
+								"Period: 2012 — 2013. " +
+								"Academic project: Development of a habitation management system (SICOM), a web-based system designed to support habitation management processes.",
+						Map.of(
+								"title", "Postgraduate Specialization in Web Software Development at UFSCar",
+								"category", "education",
+								"institution", "UFSCar",
+								"createdAt", "2013-12-01"
+						)
+				),
+
+				new Document(
+						"Ricardo Mello's academic background at Universidade de Ribeirão Preto (UNAERP). " +
+								"Degree: Postgraduate specialization in Database, Computer Science. " +
+								"Period: 2015 — 2016. " +
+								"Focus: Oracle Database Management, including database planning, implementation, modeling, management, and optimization.",
+						Map.of(
+								"title", "Postgraduate Specialization in Database at UNAERP",
+								"category", "education",
+								"institution", "UNAERP",
+								"createdAt", "2016-12-01"
+						)
+				),
+
+				new Document(
+						"Ricardo Mello's academic background at Centro Universitário Barão de Mauá. " +
+								"Degree: Systems Analysis. " +
+								"Final course project: Development of a student management system using biometric technology. " +
+								"The system was developed in Java.",
+						Map.of(
+								"title", "Systems Analysis at Centro Universitário Barão de Mauá",
+								"category", "education",
+								"institution", "Centro Universitário Barão de Mauá"
+						)
+				),
+				new Document(
 						"Ricardo Mello's professional experience at C6 Bank. Role: Senior Software Engineer. Period: Mar 2021 — Jun 2024. Location: São Paulo, Brazil · Remote. Responsibilities and achievements: Helped build TechInvest from the ground up and developed Kotlin microservices for investment products and Pix, used by millions of customers. Skills and technologies: Kotlin, MongoDB, PostgreSQL, Kafka, Microservices. Company website: https://www.c6bank.com.br.",
 						Map.of(
 								"title", "Senior Software Engineer at C6 Bank",

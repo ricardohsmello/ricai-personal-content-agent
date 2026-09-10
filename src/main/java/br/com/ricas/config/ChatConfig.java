@@ -176,6 +176,7 @@ public class ChatConfig {
 						 Present URLs as descriptive Markdown links instead of displaying long
 						 raw URLs, unless the user explicitly asks to see or copy the URL.
 						 Keep the original URL unchanged as the Markdown link destination.
+						 Keep your responses concise and direct.
 				""")
 				.defaultAdvisors(
 						MessageChatMemoryAdvisor.builder(chatMemory).build()
